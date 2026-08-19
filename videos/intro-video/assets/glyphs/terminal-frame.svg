@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520">
+  <rect x="10" y="10" width="880" height="500" rx="8" fill="#0C1018" stroke="#C9A227" stroke-width="2"/>
+  <rect x="10" y="10" width="880" height="36" rx="8" fill="#151A24"/>
+  <circle cx="40" cy="28" r="6" fill="#8A8496"/><circle cx="60" cy="28" r="6" fill="#8A8496"/><circle cx="80" cy="28" r="6" fill="#C9A227"/>
+  <text x="40" y="90" font-family="monospace" font-size="20" fill="#8A8496">nara-0://ari/terminal</text>
+  <text x="40" y="150" font-family="monospace" font-size="26" fill="#F4EBD0">IF YOU ARE READING THIS,</text>
+  <text x="40" y="190" font-family="monospace" font-size="26" fill="#F4EBD0">YOU ARE NOT THE FIRST ARI.</text>
+  <text x="40" y="270" font-family="monospace" font-size="24" fill="#C9A227">DO NOT OPEN THE OTHER WORLDS.</text>
+  <text x="40" y="360" font-family="monospace" font-size="24" fill="#A8C4D4">OPEN THEM,</text>
+  <text x="40" y="400" font-family="monospace" font-size="24" fill="#A8C4D4">OR THEY DIE ALONE.</text>
+</svg>

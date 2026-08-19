@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <radialGradient id="vignette" cx="50%" cy="45%" r="70%">
+      <stop offset="40%" stop-color="#07090F" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.75"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.08"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="#07090F"/>
+  
+  <rect x="80" y="120" width="840" height="820" fill="#121018" stroke="#8A8496" stroke-width="2"/>
+  <rect x="1000" y="120" width="840" height="820" fill="#1A160C" stroke="#C9A227" stroke-width="2"/>
+  <circle cx="500" cy="420" r="120" fill="#8A8496" opacity="0.25"/>
+  <circle cx="500" cy="380" r="50" fill="#E8E2D4" opacity="0.2"/>
+  <path d="M420 560 Q500 620 580 560" fill="none" stroke="#8A8496" stroke-width="3" opacity="0.4"/>
+  <text x="500" y="780" text-anchor="middle" font-family="monospace" font-size="22" fill="#8A8496">LUMA · ASH</text>
+  <circle cx="1420" cy="400" r="140" fill="#C9A227" opacity="0.2"/>
+  <circle cx="1420" cy="360" r="55" fill="#F4EBD0" opacity="0.45"/>
+  <circle cx="1380" cy="520" r="30" fill="#C9A227" opacity="0.35"/>
+  <text x="1420" y="780" text-anchor="middle" font-family="monospace" font-size="22" fill="#C9A227">LUMA · UNTOUCHED SUN</text>
+  <text x="160" y="100" font-family="monospace" font-size="20" fill="#C9A227" letter-spacing="8">ORA-VELL · SPLIT MERCY</text>
+
+  <rect width="1920" height="1080" fill="url(#vignette)"/>
+  <rect width="1920" height="1080" filter="url(#grain)"/>
+</svg>

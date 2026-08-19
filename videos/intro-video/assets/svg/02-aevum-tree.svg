@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <radialGradient id="vignette" cx="50%" cy="45%" r="70%">
+      <stop offset="40%" stop-color="#07090F" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.75"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.08"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="#07090F"/>
+  
+  <defs>
+    <radialGradient id="canopy" cx="50%" cy="30%" r="45%">
+      <stop offset="0%" stop-color="#F4EBD0" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#C9A227" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#07090F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="trunk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F4EBD0"/>
+      <stop offset="100%" stop-color="#8A8496"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="960" cy="340" rx="520" ry="300" fill="url(#canopy)"/>
+  <path d="M960 980 C920 780 900 620 960 420 C1020 620 1000 780 960 980 Z" fill="url(#trunk)" opacity="0.9"/>
+  <path d="M960 480 C720 380 520 260 380 160" fill="none" stroke="#F4EBD0" stroke-width="8" opacity="0.85"/>
+  <path d="M960 480 C1200 380 1400 260 1540 160" fill="none" stroke="#F4EBD0" stroke-width="8" opacity="0.85"/>
+  <path d="M960 560 C780 520 620 440 460 340" fill="none" stroke="#C9A227" stroke-width="4" opacity="0.7"/>
+  <path d="M960 560 C1140 520 1300 440 1460 340" fill="none" stroke="#C9A227" stroke-width="4" opacity="0.7"/>
+  <path d="M960 640 C840 760 740 880 700 1000" fill="none" stroke="#8A8496" stroke-width="5" opacity="0.55"/>
+  <path d="M960 640 C1080 760 1180 880 1220 1000" fill="none" stroke="#8A8496" stroke-width="5" opacity="0.55"/>
+  <circle cx="380" cy="140" r="6" fill="#F4EBD0" opacity="0.85"/>
+  <circle cx="520" cy="228" r="7" fill="#C9A227" opacity="0.85"/>
+  <circle cx="700" cy="316" r="8" fill="#F4EBD0" opacity="0.85"/>
+  <circle cx="860" cy="350" r="9" fill="#C9A227" opacity="0.85"/>
+  <circle cx="1060" cy="438" r="6" fill="#F4EBD0" opacity="0.85"/>
+  <circle cx="1220" cy="176" r="7" fill="#C9A227" opacity="0.85"/>
+  <circle cx="1400" cy="210" r="8" fill="#F4EBD0" opacity="0.85"/>
+  <circle cx="480" cy="298" r="9" fill="#C9A227" opacity="0.85"/>
+  <circle cx="640" cy="386" r="6" fill="#F4EBD0" opacity="0.85"/>
+  <circle cx="800" cy="420" r="7" fill="#C9A227" opacity="0.85"/>
+  <circle cx="1000" cy="158" r="8" fill="#F4EBD0" opacity="0.85"/>
+  <circle cx="1180" cy="246" r="9" fill="#C9A227" opacity="0.85"/>
+  <circle cx="1540" cy="280" r="6" fill="#F4EBD0" opacity="0.85"/>
+  <circle cx="420" cy="368" r="7" fill="#C9A227" opacity="0.85"/>
+  <circle cx="1480" cy="456" r="8" fill="#F4EBD0" opacity="0.85"/>
+  <text x="160" y="100" font-family="monospace" font-size="20" fill="#C9A227" letter-spacing="8">AEVUM · LIVING BOUGH</text>
+
+  <rect width="1920" height="1080" fill="url(#vignette)"/>
+  <rect width="1920" height="1080" filter="url(#grain)"/>
+</svg>
