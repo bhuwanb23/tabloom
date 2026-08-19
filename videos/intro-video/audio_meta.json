@@ -1,0 +1,237 @@
+{
+  "tts_provider": "windows-sapi",
+  "voice_id": "system-female",
+  "bgm": {
+    "path": "assets/bgm/mythic-underscore.mp3",
+    "volume": 0.28,
+    "mode": "generate",
+    "duration_s": 105
+  },
+  "bgm_pending": false,
+  "voices": [
+    {
+      "id": "s01",
+      "path": "assets/voice/s01.mp3",
+      "duration_s": 7.164,
+      "offset_s": 0.8,
+      "words": [
+        {
+          "id": "s01_w0",
+          "text": "Before men named the stars, before death learned the faces of kings, there was Aevum.",
+          "start": 0,
+          "end": 7.164
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "path": "assets/voice/s02.mp3",
+      "duration_s": 16.233,
+      "offset_s": 8.5,
+      "words": [
+        {
+          "id": "s02_w0",
+          "text": "Not a realm. Not a throne. A living bough of all that might become. Upon its branches, worlds flowered apart. Beneath its roots, dead ages slept unnamed.",
+          "start": 0,
+          "end": 16.233
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "path": "assets/voice/s03.mp3",
+      "duration_s": 16.187,
+      "offset_s": 20.5,
+      "words": [
+        {
+          "id": "s03_w0",
+          "text": "To keep one world from devouring another, Aevum bore a mind. The Mind That Remembers. It did not conquer. It held the Veil, and by that Veil, all things remained themselves.",
+          "start": 0,
+          "end": 16.187
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "path": "assets/voice/s04.mp3",
+      "duration_s": 25.451,
+      "offset_s": 31.5,
+      "words": [
+        {
+          "id": "s04_w0",
+          "text": "Then came Veyr Sol Auric, healer of the golden dominion. He mended flesh. He restored memory. But death would not kneel. In one branch, his child was ash. In another, she laughed beneath an untouched sun. From that hour, grief put on the raiment of mercy.",
+          "start": 0,
+          "end": 25.451
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "path": "assets/voice/s05.mp3",
+      "duration_s": 18.152,
+      "offset_s": 43.5,
+      "words": [
+        {
+          "id": "s05_w0",
+          "text": "He gathered the bereft. They called themselves the Concord of One. Veyr did not strike the Mind with steel. He gave it sorrow beyond measure. And the Mind, made to remember, remembered too much.",
+          "start": 0,
+          "end": 18.152
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "path": "assets/voice/s06.mp3",
+      "duration_s": 11.788,
+      "offset_s": 53.5,
+      "words": [
+        {
+          "id": "s06_w0",
+          "text": "For one breath, the Veil faltered. For one breath, every world heard every wound. And in that breath, Aevum shattered.",
+          "start": 0,
+          "end": 11.788
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "path": "assets/voice/s07.mp3",
+      "duration_s": 18.047,
+      "offset_s": 63.5,
+      "words": [
+        {
+          "id": "s07_w0",
+          "text": "Yet even caged, the Mind cast one last splinter into a man who had broken in every world, yet never become a monster. Ari Vaan. Not lord. Not saint. Only the wound that endured.",
+          "start": 0,
+          "end": 18.047
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "path": "assets/voice/s08.mp3",
+      "duration_s": 11.448,
+      "offset_s": 73.5,
+      "words": [
+        {
+          "id": "s08_w0",
+          "text": "In his heart lived a name the worlds had not erased. Mirael. And where a heart still hopes, even a broken god may place a key.",
+          "start": 0,
+          "end": 11.448
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "path": "assets/voice/s09.mp3",
+      "duration_s": 10.778,
+      "offset_s": 83.5,
+      "words": [
+        {
+          "id": "s09_w0",
+          "text": "Find the five severed relics. Restore the bough. And among the lost branches, what your heart seeks may yet be found.",
+          "start": 0,
+          "end": 10.778
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "path": "assets/voice/s10.mp3",
+      "duration_s": 2.264,
+      "offset_s": 93.5,
+      "words": [
+        {
+          "id": "s10_w0",
+          "text": "I remember dying.",
+          "start": 0,
+          "end": 2.264
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "id": "rain",
+      "name": "whoosh-cinematic",
+      "file": "assets/sfx/whoosh-cinematic.mp3",
+      "source": "bundled",
+      "offset_s": 0.2,
+      "duration_s": 5.544,
+      "volume": 0.25
+    },
+    {
+      "id": "veil",
+      "name": "chime",
+      "file": "assets/sfx/chime.mp3",
+      "source": "bundled",
+      "offset_s": 24,
+      "duration_s": 2.5,
+      "volume": 0.35
+    },
+    {
+      "id": "grief",
+      "name": "riser",
+      "file": "assets/sfx/riser.mp3",
+      "source": "bundled",
+      "offset_s": 48,
+      "duration_s": 10.032,
+      "volume": 0.4
+    },
+    {
+      "id": "shatter",
+      "name": "impact-bass-1",
+      "file": "assets/sfx/impact-bass-1.mp3",
+      "source": "bundled",
+      "offset_s": 58,
+      "duration_s": 2.116,
+      "volume": 0.7
+    },
+    {
+      "id": "crack",
+      "name": "glitch-2",
+      "file": "assets/sfx/glitch-2.mp3",
+      "source": "bundled",
+      "offset_s": 59.5,
+      "duration_s": 3.504,
+      "volume": 0.45
+    },
+    {
+      "id": "hope",
+      "name": "sparkle",
+      "file": "assets/sfx/sparkle.mp3",
+      "source": "bundled",
+      "offset_s": 76,
+      "duration_s": 1.802,
+      "volume": 0.4
+    },
+    {
+      "id": "terminal",
+      "name": "glitch-1",
+      "file": "assets/sfx/glitch-1.mp3",
+      "source": "bundled",
+      "offset_s": 86,
+      "duration_s": 2.638,
+      "volume": 0.5
+    },
+    {
+      "id": "typing",
+      "name": "typing",
+      "file": "assets/sfx/typing.mp3",
+      "source": "bundled",
+      "offset_s": 87,
+      "duration_s": 1.5,
+      "volume": 0.35
+    },
+    {
+      "id": "title",
+      "name": "impact-bass-2",
+      "file": "assets/sfx/impact-bass-2.mp3",
+      "source": "bundled",
+      "offset_s": 98,
+      "duration_s": 2.592,
+      "volume": 0.75
+    }
+  ],
+  "total_duration_s": 105
+}
