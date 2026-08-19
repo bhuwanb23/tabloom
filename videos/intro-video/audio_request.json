@@ -1,0 +1,52 @@
+{
+  "provider": "local",
+  "lang": "en",
+  "speed": 0.92,
+  "lines": [
+    {
+      "id": "s01",
+      "text": "Before men named the stars, before death learned the faces of kings, there was Aevum."
+    },
+    {
+      "id": "s02",
+      "text": "Not a realm. Not a throne. A living bough of all that might become. Upon its branches, worlds flowered apart. Beneath its roots, dead ages slept unnamed."
+    },
+    {
+      "id": "s03",
+      "text": "To keep one world from devouring another, Aevum bore a mind. The Mind That Remembers. It did not conquer. It held the Veil, and by that Veil, all things remained themselves."
+    },
+    {
+      "id": "s04",
+      "text": "Then came Veyr Sol Auric, healer of the golden dominion. He mended flesh. He restored memory. But death would not kneel. In one branch, his child was ash. In another, she laughed beneath an untouched sun. From that hour, grief put on the raiment of mercy."
+    },
+    {
+      "id": "s05",
+      "text": "He gathered the bereft. They called themselves the Concord of One. Veyr did not strike the Mind with steel. He gave it sorrow beyond measure. And the Mind, made to remember, remembered too much."
+    },
+    {
+      "id": "s06",
+      "text": "For one breath, the Veil faltered. For one breath, every world heard every wound. And in that breath, Aevum shattered."
+    },
+    {
+      "id": "s07",
+      "text": "Yet even caged, the Mind cast one last splinter into a man who had broken in every world, yet never become a monster. Ari Vaan. Not lord. Not saint. Only the wound that endured."
+    },
+    {
+      "id": "s08",
+      "text": "In his heart lived a name the worlds had not erased. Mirael. And where a heart still hopes, even a broken god may place a key."
+    },
+    {
+      "id": "s09",
+      "text": "Find the five severed relics. Restore the bough. And among the lost branches, what your heart seeks may yet be found."
+    },
+    {
+      "id": "s10",
+      "text": "I remember dying."
+    }
+  ],
+  "bgm": {
+    "mode": "generate",
+    "query": "low drone soft piano distant choir rising strings cinematic mythic",
+    "prompt": "mythic fantasy underscore, low drone, soft piano, distant choir, rising strings, sorrowful, no vocals"
+  }
+}
