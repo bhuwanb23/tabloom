@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 /*  with the fifteen shadows he keeps casting.                         */
 /* ------------------------------------------------------------------ */
 
-export type AriAspect = "archivist" | "oathblade";
+export type AriAspect = "archivist" | "oathblade" | "patient";
 export type AriPose = "lying" | "sitting" | "standing";
 
 function Lying({ rim }: { rim: string }) {
@@ -47,6 +47,26 @@ function Sitting({ rim }: { rim: string }) {
 }
 
 function Standing({ aspect, rim }: { aspect: AriAspect; rim: string }) {
+  if (aspect === "patient") {
+    /* convalescent — narrower, slightly stooped, robe not coat */
+    return (
+      <svg viewBox="0 0 160 240" className="h-full w-full" style={{ filter: "blur(1.5px)" }}>
+        {/* ward robe, loose */}
+        <path
+          d="M80 40 C 92 40, 97 51, 96 62 C 105 78, 108 104, 107 134 L 109 214 L 92 214 L 89 152 L 84 152 L 80 214 L 63 214 L 65 134 C 65 104, 62 78, 64 62 C 63 51, 68 40, 80 40 Z"
+          fill="rgba(6,8,12,0.9)"
+        />
+        <circle cx="79" cy="28" r="14" fill="rgba(6,8,12,0.92)" />
+        {/* one hand steadying against something unseen */}
+        <path d="M64 84 C 54 96, 50 110, 52 124" stroke="rgba(6,8,12,0.9)" strokeWidth="9" strokeLinecap="round" fill="none" />
+        {/* bandage band at the forearm */}
+        <path d="M53 112 L 60 108" stroke={rim} strokeWidth="3.4" strokeLinecap="round" opacity="0.5" />
+        {/* soft rim — weaker light than his other aspects */}
+        <path d="M64 62 C 63 51, 68 40, 80 40" stroke={rim} strokeWidth="1.4" fill="none" opacity="0.42" strokeLinecap="round" />
+        <path d="M68 17 C 74 13, 84 13, 90 18" stroke={rim} strokeWidth="1.1" fill="none" opacity="0.32" strokeLinecap="round" />
+      </svg>
+    );
+  }
   if (aspect === "oathblade") {
     return (
       <svg viewBox="0 0 160 240" className="h-full w-full" style={{ filter: "blur(1.4px)" }}>

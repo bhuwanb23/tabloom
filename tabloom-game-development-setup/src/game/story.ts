@@ -398,7 +398,101 @@ export const SCENES: Scene[] = [
       n("Somewhere far under the ice, ten dead branches keep rotting, patiently, in a place he was never supposed to see this early."),
       set("tabHide", false),
       fx("fadeBlack", 2600),
-      { k: "card", kicker: "ACT III", text: "A GLIMPSE, UNINVITED", sub: "complete · the tab bar returns · act iv sealed", style: "big" },
+      { k: "card", kicker: "ACT III", text: "A GLIMPSE, UNINVITED", sub: "complete · the tab bar returns", style: "big" },
+    ],
+  },
+
+  /* ===================== ACT IV — THE FATHER WHO CATALOGUED A DEATH ===================== */
+
+  /* --------------- 11 · ARRIVAL — THE GRAND WARD --------------- */
+  {
+    id: "act4-ward",
+    branch: "ora",
+    title: "ORA-VELL.branch",
+    meta: { url: "aevum://ora-vell/ward-of-saint-vellum", tag: "gold light · recovering", clock: "14:20" },
+    beats: [
+      { k: "card", kicker: "ACT IV", text: "THE FATHER WHO CATALOGUED A DEATH", sub: "ora-vell · the branch that could afford to try", style: "big" },
+      set("intimate", false),
+      set("archive", false),
+      set("weight", false),
+      set("aspect", "patient"),
+      codex("oravell"),
+      n("A third tab surfaces on its own — gold-lit, unhurried, obscenely well-funded."),
+      n("Ora-Vell. Vaulted ribs of gilt, windows tall enough to embarrass a cathedral, marble that has never once been asked to hold a war."),
+      n("Ari wakes here thinner than he arrived. The ward is the finest in any reality; it is also, somehow, the loneliest room he has ever stood in."),
+      n("A hundred beds. Every one of them empty, made, waiting. As if the whole branch were holding a place for someone who never came back."),
+      d("senn", "Careful. You're mending, and mending is slower than you'd like. Walk gently here."),
+      d("ari", "Why this branch?"),
+      d("senn", "Because this is where he lost her. And because a man who catalogues his grief always leaves the catalogue where someone can find it."),
+      {
+        k: "hotspot",
+        id: "archiveDoor",
+        label: "THE ARCHIVE",
+        sub: "a door nobody has locked in years",
+        rect: [66, 34, 12, 22],
+        then: [
+          set("archive"),
+          n("Down a corridor of gold, one door has no gold on it at all."),
+          n("Veyr Sol Auric's archive: filing drawers to the ceiling, red thread strung wall to wall, and a desk arranged with the terrible neatness of a man who has nothing left to do but sort."),
+        ],
+      },
+    ],
+  },
+
+  /* --------------- 12 · THE RECONSTRUCTION --------------- */
+  {
+    id: "act4-archive",
+    branch: "ora",
+    title: "ORA-VELL.branch",
+    meta: { url: "aevum://ora-vell/veyr-archive", tag: "lamp · red thread", clock: "15:47" },
+    beats: [
+      codex("veyr"),
+      d("senn", "He kept everything. Every branch, every attempt, every bill. What he never did — not once — was read it all in a row."),
+      d("ari", "Why not?"),
+      d("senn", "Because a man can survive fifteen tragedies. Nobody survives noticing they were the same one."),
+      n("The files are scattered across the desk, out of sequence. Somewhere in their order is the sentence that ended a universe."),
+      { k: "docs" },
+      codex("liora"),
+      /* the reveal — real, not a vision */
+      set("weight"),
+      { k: "reveal", text: "Fifteen deaths.", size: "huge" },
+      { k: "reveal", text: "Not fifteen different griefs — one grief wearing fifteen coats." },
+      { k: "reveal", text: "He checked every world for a version where his daughter lived. Every world handed him the same date." },
+      { k: "reveal", text: "So he stopped asking reality for mercy, and started asking it for a reason." },
+      { k: "reveal", text: "It did not have one." },
+      d("ari", "…He wasn't mad when he started."),
+      d("senn", "No. He was thorough. That's so much worse, Ari. Madness burns out. Thoroughness files everything and comes back in the morning."),
+      n("On the desk, beneath the last page, something small and hard catches the lamp — a relic, worn smooth by a thumb that held it for years."),
+    ],
+  },
+
+  /* --------------- 13 · THE INVARIANT --------------- */
+  {
+    id: "act4-invariant",
+    branch: "ora",
+    title: "ORA-VELL.branch",
+    meta: { url: "aevum://ora-vell/veyr-archive", tag: "the point that will not move", clock: "16:12" },
+    beats: [
+      {
+        k: "hotspot",
+        id: "relic",
+        label: "THE RELIC",
+        sub: "worn smooth by one thumb",
+        rect: [47, 58, 9, 12],
+        then: [
+          codex("invariant"),
+          { k: "diagram" },
+          d("senn", "That is what he found. That is the whole engine of him."),
+          d("ari", "One point that stays the same in every world."),
+          d("senn", "And he read it as a verdict. As if the universe had bothered to sentence him personally."),
+          d("ari", "What is it really?"),
+          d("senn", "A hinge, little echo. The only thing that holds still in every world is the only thing you can hang a door on. Remember that — I mean it more than I usually mean things."),
+          n("Ari puts the relic down exactly where it was. It seems important not to move it."),
+          n("Behind him, fifteen files lie in order for the first time since they were written. The archive is very quiet, in the way of rooms that have finally been understood."),
+        ],
+      },
+      fx("fadeBlack", 2600),
+      { k: "card", kicker: "ACT IV", text: "THE FATHER WHO CATALOGUED A DEATH", sub: "complete · you know what he knows now", style: "big" },
     ],
   },
 ];

@@ -489,6 +489,45 @@ function VisionBeat({ beat, onReady }: { beat: Extract<Beat, { k: "vision" }>; o
   );
 }
 
+/* ------------------------- reveal beat (real, not a vision) ------------------------- */
+function RevealBeat({ beat, onReady }: { beat: Extract<Beat, { k: "reveal" }>; onReady: (h: BeatHandle) => void }) {
+  const mountedAt = useRef(Date.now());
+  useEffect(() => {
+    onReady({ press: () => Date.now() - mountedAt.current < 700 });
+  }, [onReady]);
+
+  const huge = beat.size === "huge";
+
+  return (
+    <motion.div
+      className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.9 } }}
+      transition={{ duration: 1.3, ease: "easeOut" }}
+    >
+      <div className="max-w-3xl text-center">
+        <motion.p
+          className={`font-display font-light leading-[1.4] text-white ${huge ? "text-4xl sm:text-6xl" : "text-2xl sm:text-4xl"}`}
+          style={{ textShadow: "0 0 40px rgba(0,0,0,0.95), 0 0 90px rgba(255,217,163,0.18)" }}
+          initial={{ opacity: 0, y: 14, letterSpacing: "0.12em" }}
+          animate={{ opacity: 1, y: 0, letterSpacing: "0.01em" }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {beat.text}
+        </motion.p>
+        <motion.div
+          className="mx-auto mt-7 h-px w-40"
+          style={{ background: "linear-gradient(90deg, transparent, rgba(255,217,163,0.6), transparent)" }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: 0.9, duration: 1.1 }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
 /* ------------------------- main layer ------------------------- */
 
 export default function NarrativeLayer({
@@ -519,6 +558,7 @@ export default function NarrativeLayer({
   if (beat.k === "hotspot") return <HotspotBeat key={beatKey} beat={beat} onReady={setHandle} onTrigger={onHotspotThen} />;
   if (beat.k === "echo") return <EchoBeat key={beatKey} beat={beat} onReady={setHandle} />;
   if (beat.k === "vision") return <VisionBeat key={beatKey} beat={beat} onReady={setHandle} />;
+  if (beat.k === "reveal") return <RevealBeat key={beatKey} beat={beat} onReady={setHandle} />;
   if (beat.k === "awaitTab") return <AwaitTabBeat key={beatKey} beat={beat} onReady={setHandle} />;
   if (beat.k === "unlock") return <UnlockBeat key={beatKey} beat={beat} onReady={setHandle} />;
 

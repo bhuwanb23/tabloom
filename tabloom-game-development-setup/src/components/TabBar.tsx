@@ -9,6 +9,7 @@ import type { BranchId } from "../game/types";
 const BRANCH_STYLE: Record<BranchId, { dot: string; glow: string; label: string }> = {
   nara: { dot: "#aebfd0", glow: "rgba(174,191,208,0.5)", label: "NARA-0.branch" },
   karth: { dot: "#9fd7ff", glow: "rgba(159,215,255,0.55)", label: "KARTH-MUUN.branch" },
+  ora: { dot: "#ffd9a3", glow: "rgba(255,217,163,0.55)", label: "ORA-VELL.branch" },
   void: { dot: "#7ff5c9", glow: "rgba(127,245,201,0.5)", label: "aevum://root" },
 };
 

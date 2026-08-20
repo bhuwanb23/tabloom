@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BookOpen, Check, Eye, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors } from "lucide-react";
+import { Anchor, BookOpen, Check, Eye, FileText, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors } from "lucide-react";
 import type { RunStats } from "../game/types";
 import Motes from "./fx/Motes";
 import SennAvatar from "./SennAvatar";
@@ -61,6 +61,20 @@ const ACT_INFO: Record<
       { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
       { icon: Eye, label: "THE BODY BELOW", value: "SEEN", tone: "#b8b0c8" },
       { icon: Lock, label: "APPROACH", value: "DENIED", tone: "#8a94a6" },
+      { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
+    ],
+  },
+  4: {
+    title: "The Father Who Catalogued a Death",
+    sub: "ORA-VELL · FIFTEEN FILES, ONE DATE",
+    kicker: "END OF ACT IV",
+    quote: "One grief wearing fifteen coats.",
+    quoteBy: "— THE FILE HE NEVER PUT AWAY",
+    caption: "He wasn't mad when he started. He was thorough. That is so much worse.",
+    chips: [
+      { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
+      { icon: FileText, label: "ARCHIVE", value: "IN ORDER", tone: "#ffd9a3" },
+      { icon: Anchor, label: "THE INVARIANT", value: "LEARNED", tone: "#ffc07a" },
       { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
     ],
   },

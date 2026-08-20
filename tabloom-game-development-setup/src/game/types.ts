@@ -2,7 +2,7 @@
 /*  TABLOOM — narrative engine types                                   */
 /* ------------------------------------------------------------------ */
 
-export type BranchId = "nara" | "karth" | "void";
+export type BranchId = "nara" | "karth" | "ora" | "void";
 
 export type Speaker = "ari" | "ari2" | "senn" | "terminal" | "veyr" | "kael" | "soldier";
 
@@ -75,7 +75,10 @@ export type Beat =
   | { k: "combat"; wave: number }
   | { k: "prune"; target: string }
   | { k: "vision"; text: string; size?: "big" | "huge" }
-  | { k: "hold"; ms: number };
+  | { k: "hold"; ms: number }
+  | { k: "reveal"; text: string; size?: "big" | "huge" }
+  | { k: "docs" }
+  | { k: "diagram" };
 
 export interface SceneMeta {
   url: string;
@@ -113,6 +116,7 @@ export interface MetaSave {
   act1Complete: boolean;
   act2Complete: boolean;
   act3Complete: boolean;
+  act4Complete: boolean;
   muted: boolean;
 }
 

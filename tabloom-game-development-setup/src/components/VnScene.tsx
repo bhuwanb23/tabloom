@@ -3,6 +3,8 @@ import type { BranchId } from "../game/types";
 import naraBg from "../assets/images/nara-apartment.jpg";
 import karthBg from "../assets/images/karth-battlefield.jpg";
 import chamberBg from "../assets/images/curse-heart-chamber.jpg";
+import wardBg from "../assets/images/ora-ward.jpg";
+import archiveBg from "../assets/images/veyr-archive.jpg";
 import ShadowWall from "./ShadowWall";
 import AriSprite, { type AriPose } from "./sprites/AriSprite";
 import { KaelSprite, MiraelSprite, SoldierSprite, CastPresence } from "./sprites/CastSprites";
@@ -469,6 +471,85 @@ function ChamberScene({ flags }: { flags: Flags }) {
   );
 }
 
+/* ------------------------- ORA-VELL ------------------------- */
+function OraScene({ flags }: { flags: Flags }) {
+  const inArchive = Boolean(flags.archive);
+
+  return (
+    <>
+      {/* the ward pushes in slowly; the archive holds tighter and closer */}
+      <motion.img
+        key={inArchive ? "arch" : "ward"}
+        src={inArchive ? archiveBg : wardBg}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        initial={{ scale: inArchive ? 1.04 : 1.02, opacity: 0 }}
+        animate={{ scale: inArchive ? 1.1 : 1.16, opacity: 1 }}
+        transition={{
+          scale: { duration: inArchive ? 40 : 26, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+          opacity: { duration: 1.6 },
+        }}
+        draggable={false}
+      />
+
+      {/* ward: warm shafts through tall windows */}
+      {!inArchive && (
+        <>
+          <div
+            className="absolute inset-y-0 left-[6%] w-[34%] opacity-40"
+            style={{ background: "linear-gradient(112deg, rgba(255,226,170,0.28), transparent 62%)", mixBlendMode: "screen" }}
+          />
+          <Motes tone="dust" count={22} className="absolute inset-0 h-full w-full opacity-70" />
+        </>
+      )}
+
+      {/* archive: the lamp, and the red thread catching it */}
+      {inArchive && (
+        <>
+          <div
+            className="absolute h-[38%] w-[30%]"
+            style={{
+              left: "52%",
+              top: "34%",
+              background: "radial-gradient(ellipse at 40% 40%, rgba(255,196,110,0.3), transparent 70%)",
+              mixBlendMode: "screen",
+              animation: "flick 6s linear infinite",
+            }}
+          />
+          <Motes tone="dust" count={16} className="absolute inset-0 h-full w-full opacity-60" />
+        </>
+      )}
+
+      {/* ari — deliberately smaller and lower in frame: he is recovering */}
+      {!inArchive && (
+        <div className="absolute" style={{ left: "40%", top: "52%", width: "8.5%", height: "34%" }}>
+          <AriSprite aspect="patient" pose="standing" rim="#ffd9a3" />
+        </div>
+      )}
+      {inArchive && (
+        <div className="absolute" style={{ left: "16%", top: "44%", width: "9.5%", height: "40%" }}>
+          <AriSprite aspect="patient" pose="standing" rim="#ffd9a3" />
+        </div>
+      )}
+
+      {/* the weight of the discovery — vignette creeping in from the edges */}
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        style={{ boxShadow: "inset 0 0 200px 40px rgba(0,0,0,0.95)" }}
+        animate={{ opacity: flags.weight ? 1 : 0 }}
+        transition={{ duration: 4.5, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="pointer-events-none absolute inset-0 bg-[#0a0704]"
+        animate={{ opacity: flags.weight ? 0.42 : 0 }}
+        transition={{ duration: 4.5, ease: "easeInOut" }}
+      />
+
+      <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-black/78 via-black/25 to-transparent" />
+    </>
+  );
+}
+
 /* ------------------------- SHELL ------------------------- */
 
 export default function VnScene({
@@ -501,6 +582,7 @@ export default function VnScene({
           <KarthWide flags={flags} />
         )
       )}
+      {branch === "ora" && <OraScene flags={flags} />}
       {branch === "void" && (
         <div className="absolute inset-0 bg-[#05070a]">
           <Motes tone="root" count={26} className="absolute inset-0 h-full w-full opacity-60" />

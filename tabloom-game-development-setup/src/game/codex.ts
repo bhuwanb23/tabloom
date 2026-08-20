@@ -113,6 +113,27 @@ export const CODEX: CodexEntry[] = [
     kicker: "not a dream — dreams are yours",
     body: "Something reached up through the root-system and pulled his eye down into a place he has not earned yet. The Witness Mind's wreckage leaks; sometimes it leaks into whoever is nearest. Senn calls it nothing that has happened yet. Senn is choosing words very carefully.",
   },
+  {
+    id: "oravell",
+    cat: "places",
+    title: "Ora-Vell",
+    kicker: "the branch that could afford to try",
+    body: "Gilded ribs, tall windows, marble that has never once been asked to hold a war. The richest branch still standing — and the one that spent the most money failing to save a single girl. Its healing wards are the finest in any reality. They were not enough.",
+  },
+  {
+    id: "liora",
+    cat: "people",
+    title: "Liora Auric",
+    kicker: "fifteen times, the same age",
+    body: "Veyr's daughter. Every branch he searched, he found her — and found her dying of the same thing at the same age, no matter what he changed, bought, begged, or broke. Fifteen files. Fifteen dates. One date, really, wearing fifteen coats.",
+  },
+  {
+    id: "invariant",
+    cat: "things",
+    title: "The Invariant",
+    kicker: "the point that will not move",
+    body: "Change everything and something stays. Across all branches of Aevum, most facts are soft — but a rare few are load-bearing, identical in every version of every world. Veyr found one and called it a wall. He is wrong about that. An invariant is not a wall; it is a hinge — and hinges are how doors work.",
+  },
 ];
 
 export const codexById = (id: string): CodexEntry | undefined =>

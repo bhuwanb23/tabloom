@@ -137,6 +137,7 @@ class AudioEngine {
     const targets: Record<BranchId, number[]> = {
       nara: [55, 55.4, 110.2],
       karth: [49, 49.3, 98.1],
+      ora: [61.7, 62.1, 123.5],
       void: [41.2, 41.6, 82.4],
     };
     this.droneOscs.forEach((o, i) => {

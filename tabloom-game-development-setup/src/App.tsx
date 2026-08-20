@@ -27,11 +27,12 @@ const FRESH_RUN: RunSave = {
 function loadMeta(): MetaSave {
   try {
     const raw = localStorage.getItem(META_KEY);
-    if (raw) return { codex: [], act1Complete: false, act2Complete: false, act3Complete: false, muted: false, ...JSON.parse(raw) };
+    if (raw)
+      return { codex: [], act1Complete: false, act2Complete: false, act3Complete: false, act4Complete: false, muted: false, ...JSON.parse(raw) };
   } catch {
     /* ignore */
   }
-  return { codex: [], act1Complete: false, act2Complete: false, act3Complete: false, muted: false };
+  return { codex: [], act1Complete: false, act2Complete: false, act3Complete: false, act4Complete: false, muted: false };
 }
 
 function loadRun(): RunSave | null {
@@ -100,7 +101,7 @@ export default function App() {
   const onEnd = useCallback((stats: RunStats) => {
     setMeta((m) => {
       endCodexCount.current = m.codex.length;
-      return { ...m, act1Complete: true, act2Complete: true, act3Complete: true };
+      return { ...m, act1Complete: true, act2Complete: true, act3Complete: true, act4Complete: true };
     });
     try {
       localStorage.removeItem(RUN_KEY);
@@ -122,7 +123,7 @@ export default function App() {
       {phase === "title" && (
         <TitleScreen
           hasSave={hasSave}
-          completed={meta.act3Complete ? 3 : meta.act2Complete ? 2 : meta.act1Complete ? 1 : 0}
+          completed={meta.act4Complete ? 4 : meta.act3Complete ? 3 : meta.act2Complete ? 2 : meta.act1Complete ? 1 : 0}
           onBegin={begin}
           onContinue={continueRun}
           onOpenCodex={() => setCodexOpen(true)}
@@ -143,8 +144,8 @@ export default function App() {
 
       {phase === "end" && endStats && (
         <EndOfAct
-          act={3}
-          completedActs={[1, 2, 3]}
+          act={4}
+          completedActs={[1, 2, 3, 4]}
           stats={{ ...endStats, codexCount: endCodexCount.current || endStats.codexCount }}
           codexCount={endCodexCount.current || meta.codex.length}
           codexTotal={CODEX.length}

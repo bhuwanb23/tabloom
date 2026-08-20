@@ -11,6 +11,8 @@ import NarrativeLayer, { type BeatHandle } from "./NarrativeLayer";
 import GraftGame from "./GraftGame";
 import CombatLoop from "./CombatLoop";
 import PruneCharge from "./PruneCharge";
+import DocPuzzle from "./DocPuzzle";
+import InvariantDiagram from "./InvariantDiagram";
 import VnScene from "./VnScene";
 import GraftCast from "./fx/GraftCast";
 import StaticNoise from "./fx/StaticNoise";
@@ -57,7 +59,7 @@ export default function GameShell({
   const [grafted, setGrafted] = useState(initial.grafted);
   const [sennHere, setSennHere] = useState(Boolean(initial.flags.sennHere));
   const [sennBurst, setSennBurst] = useState(false);
-  const [overlay, setOverlay] = useState<"graft" | "combat" | "prune" | null>(null);
+  const [overlay, setOverlay] = useState<"graft" | "combat" | "prune" | "docs" | "diagram" | null>(null);
   const [transitioning, setTransitioning] = useState(false);
   const [flash, setFlash] = useState<"root" | "white" | "cold" | "tear" | null>(null);
   const [fadeBlack, setFadeBlack] = useState(false);
@@ -315,6 +317,14 @@ export default function GameShell({
     }
     if (beat.k === "prune") {
       setOverlay("prune");
+      return;
+    }
+    if (beat.k === "docs") {
+      setOverlay("docs");
+      return;
+    }
+    if (beat.k === "diagram") {
+      setOverlay("diagram");
       return;
     }
     if (beat.k === "awaitTab" && beat.branch === branch) {
@@ -617,6 +627,16 @@ export default function GameShell({
         {/* act ii — pruning the frost-curse heart */}
         <AnimatePresence>
           {overlay === "prune" && <PruneCharge onSuccess={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act iv — reconstructing veyr's archive */}
+        <AnimatePresence>
+          {overlay === "docs" && <DocPuzzle onSolved={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act iv — the invariant, explained to the player */}
+        <AnimatePresence>
+          {overlay === "diagram" && <InvariantDiagram onClose={closeOverlayAdvance} />}
         </AnimatePresence>
 
         {/* toasts */}
