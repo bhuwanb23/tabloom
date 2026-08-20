@@ -1,1 +1,12 @@
+# dependencies
 node_modules/
+
+# production build (Render builds this on deploy)
+dist/
+
+# local / editor
+.DS_Store
+Thumbs.db
+*.local
+.env
+.env.*

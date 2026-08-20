@@ -185,7 +185,7 @@ export default function DocPuzzle({ onSolved }: { onSolved: () => void }) {
             <h3 className="font-display mt-1 text-2xl font-medium text-white/95 sm:text-3xl">Put the grief in order</h3>
           </div>
           <div className="flex items-center gap-1.5">
-            {slots.map((id, i) => (
+            {slots.map((_, i) => (
               <span
                 key={i}
                 className="h-1.5 w-5 rounded-full transition-all duration-500"

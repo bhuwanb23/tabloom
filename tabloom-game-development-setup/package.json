@@ -1,11 +1,15 @@
 {
-  "name": "react-vite-tailwind",
+  "name": "tabloom",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "TABLOOM: The Last Mind of Aevum — a ten-act narrative web game",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
