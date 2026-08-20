@@ -148,8 +148,14 @@ export default function VeyrFight({ onWin }: { onWin: () => void }) {
 
   useEffect(() => {
     const k = (e: KeyboardEvent) => {
-      if (e.key === "1") setStance("prune");
-      if (e.key === "2") setStance("graft");
+      if (e.key === "1") {
+        setStance("prune");
+        audio.select(520);
+      }
+      if (e.key === "2") {
+        setStance("graft");
+        audio.select(700);
+      }
     };
     window.addEventListener("keydown", k);
     return () => window.removeEventListener("keydown", k);
@@ -204,12 +210,16 @@ export default function VeyrFight({ onWin }: { onWin: () => void }) {
     e.stopPropagation();
     holdRef.current = true;
     if (mode === "null") {
-      if (stance !== "graft") showTag("GRAFT — HOLD THE GROUND");
+      if (stance !== "graft") {
+        showTag("GRAFT — HOLD THE GROUND");
+        audio.reject(320);
+      }
       return;
     }
     if (mode !== "window" || chargeStart.current != null) return;
     if (stance !== "prune") {
       showTag("SWITCH TO PRUNE");
+      audio.reject(320);
       return;
     }
     chargeStart.current = performance.now();

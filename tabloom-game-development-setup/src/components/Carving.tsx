@@ -85,6 +85,7 @@ export default function Carving({ lines, onDone }: { lines: string[]; onDone: ()
         <motion.button
           onClick={(e) => {
             e.stopPropagation();
+            audio.click(620);
             onDone();
           }}
           className="mx-auto mt-8 flex items-center gap-3 rounded-xl border border-amber-200/35 bg-amber-200/[0.06] px-7 py-3 font-term text-[11px] tracking-[0.3em] text-amber-100 transition-all hover:bg-amber-200/[0.13]"

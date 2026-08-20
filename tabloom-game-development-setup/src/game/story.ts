@@ -58,8 +58,17 @@ export const SCENES: Scene[] = [
       n("Nara-0. A grey city, a grey apartment — ordinary in the specific way that makes ordinary things feel like a held breath."),
       codex("ari"),
       n("Ari Vaan wakes wrong. Not injured — wrong, the way a word feels wrong after you've said it forty times in a row."),
-      set("ariPose", "sitting"),
-      n("He sits up. Somewhere in his chest, an echo sits up with him."),
+      {
+        k: "hotspot",
+        id: "bed",
+        label: "SIT UP",
+        sub: "click to progress",
+        rect: [28, 48, 28, 28],
+        then: [
+          set("ariPose", "sitting"),
+          n("He sits up. Somewhere in his chest, an echo sits up with him."),
+        ],
+      },
       fx("shadowsOn", 2600),
       n("The wall across from his bed is doing something walls don't do."),
       n("It is holding fifteen shadows. Cast by nothing. None of them quite matching the one body sitting in the bed."),
@@ -69,8 +78,8 @@ export const SCENES: Scene[] = [
         k: "hotspot",
         id: "terminal",
         label: "TERMINAL",
-        sub: "it booted itself",
-        rect: [38, 42, 12, 18],
+        sub: "click glowing objects to progress",
+        rect: [36, 40, 16, 22],
         then: [
           {
             k: "t",
@@ -185,10 +194,10 @@ export const SCENES: Scene[] = [
         k: "hotspot",
         id: "drawer",
         label: "DRAWER",
-        sub: "bound in root-vines",
-        rect: [31, 62, 14, 14],
+        sub: "bound in root-vines · try grafting",
+        rect: [29, 60, 16, 16],
         then: [
-          fx("graftCast", 2200),
+          { k: "graft", pairs: 6 },
           n("Teal and gold. His hands move before he tells them to — the thread finds the seam, the seam finds the thread."),
           set("drawerCracked"),
           n("A crack. Hairline. And then the weave slips, the threads let go all at once, like a held breath deciding not to be held."),
@@ -291,7 +300,7 @@ export const SCENES: Scene[] = [
         id: "chamberGate",
         label: "HEART CHAMBER",
         sub: "the ice beats here",
-        rect: [45, 26, 11, 18],
+        rect: [42, 22, 16, 24],
         then: [
           set("chamber"),
           fx("coldFlash", 900),

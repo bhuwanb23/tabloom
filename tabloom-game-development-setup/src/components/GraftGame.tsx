@@ -164,6 +164,7 @@ export default function GraftGame({
     if (phase !== "play") return;
     e.stopPropagation();
     if (armed !== null) attempt(armed, i);
+    else audio.reject(300);
   };
 
   const onMove = (e: RPointerEvent) => {

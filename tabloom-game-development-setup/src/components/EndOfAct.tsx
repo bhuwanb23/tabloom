@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Anchor, BookOpen, Check, Eye, EyeOff, FileText, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors, Sparkle, Sprout, Swords, Users } from "lucide-react";
 import type { RunStats } from "../game/types";
+import { audio } from "../game/audio";
 import Motes from "./fx/Motes";
 import SennAvatar from "./SennAvatar";
 import { KaelSprite } from "./sprites/CastSprites";
@@ -316,21 +317,30 @@ export default function EndOfAct({
           transition={{ delay: 1.2 }}
         >
           <button
-            onClick={onReplay}
+            onClick={() => {
+              audio.bloom();
+              onReplay();
+            }}
             className="flex items-center gap-2.5 rounded-xl border border-emerald-300/40 bg-emerald-300/[0.07] px-6 py-3 font-term text-[11px] tracking-[0.28em] text-emerald-100 transition-all hover:bg-emerald-300/[0.14] hover:shadow-[0_0_36px_rgba(127,245,201,0.2)]"
           >
             <RotateCcw size={13} />
             REPLAY FROM ACT I
           </button>
           <button
-            onClick={onOpenCodex}
+            onClick={() => {
+              audio.click(720);
+              onOpenCodex();
+            }}
             className="flex items-center gap-2.5 rounded-xl border border-white/[0.12] bg-white/[0.03] px-6 py-3 font-term text-[11px] tracking-[0.28em] text-white/70 transition-all hover:border-amber-200/40 hover:text-amber-100"
           >
             <BookOpen size={13} />
             OPEN CODEX
           </button>
           <button
-            onClick={onTitle}
+            onClick={() => {
+              audio.click(640);
+              onTitle();
+            }}
             className="flex items-center gap-2.5 rounded-xl border border-white/[0.12] bg-white/[0.03] px-6 py-3 font-term text-[11px] tracking-[0.28em] text-white/70 transition-all hover:border-white/30 hover:text-white"
           >
             <Home size={13} />

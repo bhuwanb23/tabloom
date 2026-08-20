@@ -36,10 +36,10 @@ export default function ExploreLayer({
     onFind(f.id);
   };
 
-  const leave = () => {
+    const leave = () => {
     if (leaving) return;
     setLeaving(true);
-    audio.ui(620);
+    audio.select(620);
     window.setTimeout(onExit, 400);
   };
 
@@ -132,6 +132,7 @@ export default function ExploreLayer({
             exit={{ opacity: 0 }}
             onClick={(e) => {
               e.stopPropagation();
+              audio.click(520);
               setOpen(null);
             }}
           >
@@ -146,7 +147,10 @@ export default function ExploreLayer({
             >
               <button
                 className="absolute right-4 top-4 text-white/35 transition-colors hover:text-white/80"
-                onClick={() => setOpen(null)}
+                onClick={() => {
+                  audio.click(520);
+                  setOpen(null);
+                }}
               >
                 <X size={14} />
               </button>
@@ -155,7 +159,10 @@ export default function ExploreLayer({
               <div className="hair-line my-4 w-full" />
               <p className="font-display text-[15px] italic leading-relaxed text-white/65">{open.body}</p>
               <button
-                onClick={() => setOpen(null)}
+                onClick={() => {
+                  audio.click(520);
+                  setOpen(null);
+                }}
                 className="font-term mt-5 flex items-center gap-2 text-[10px] tracking-[0.28em] text-amber-200/80 transition-colors hover:text-amber-100"
               >
                 SET IT DOWN

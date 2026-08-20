@@ -62,7 +62,10 @@ export default function QuietGraft({ onDone }: { onDone: () => void }) {
       onPointerUp={() => setDrawing(false)}
       onPointerDown={(e) => {
         const p = toSvg(e.clientX, e.clientY);
-        if (near(p, 0) || linked > 0) setDrawing(true);
+        if (near(p, 0) || linked > 0) {
+          setDrawing(true);
+          audio.select(560);
+        }
       }}
     >
       <div className="relative aspect-square w-full max-w-[440px] touch-none">

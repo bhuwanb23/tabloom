@@ -201,6 +201,32 @@ class AudioEngine {
     o.stop(t + 0.16);
   }
 
+  /** primary button / continue / tab chrome */
+  click(freq = 680) {
+    this.ui(freq);
+  }
+
+  /** choice pick / hotspot / stance / target lock */
+  select(freq = 560) {
+    this.ui(freq);
+  }
+
+  /** wrong action / locked / empty tap */
+  reject(freq = 280) {
+    const ctx = this.ctx;
+    if (!ctx || !this.master || this.muted || !this.started) return;
+    const t = ctx.currentTime;
+    const o = ctx.createOscillator();
+    o.type = "triangle";
+    o.frequency.value = freq;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.035, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+    o.connect(g).connect(this.master);
+    o.start(t);
+    o.stop(t + 0.14);
+  }
+
   /** graft success — soft root chime */
   chime() {
     const ctx = this.ctx;

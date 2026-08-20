@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import rootBg from "../../assets/images/root-below.jpg";
+import { audio } from "../../game/audio";
 import StaticNoise from "../fx/StaticNoise";
 import Motes from "../fx/Motes";
 import DeadAri from "../sprites/DeadAri";
@@ -27,7 +28,13 @@ export default function RootBelowVision({ showDead }: { showDead: boolean }) {
 
   /* any click, anywhere — the camera goes where it was always going */
   useEffect(() => {
-    const onDown = () => setStep((s) => Math.min(s + 1, DRIFT.length - 1));
+    const onDown = () => {
+      setStep((s) => {
+        const next = Math.min(s + 1, DRIFT.length - 1);
+        if (next !== s) audio.staticBurst(0.12);
+        return next;
+      });
+    };
     window.addEventListener("pointerdown", onDown);
     return () => window.removeEventListener("pointerdown", onDown);
   }, []);

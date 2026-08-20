@@ -112,6 +112,7 @@ export default function CombatLoop({ onCleared }: { onCleared: () => void }) {
   const [slash, setSlash] = useState<Record<number, number>>({});
   const [shakeAll, setShakeAll] = useState(false);
   const [hurtFlash, setHurtFlash] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(true);
 
   const chargeStart = useRef<number | null>(null);
   const raf = useRef(0);
@@ -197,8 +198,14 @@ export default function CombatLoop({ onCleared }: { onCleared: () => void }) {
   /* keyboard stances */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "1") setStance("prune");
-      if (e.key === "2") setStance("graft");
+      if (e.key === "1") {
+        setStance("prune");
+        audio.select(520);
+      }
+      if (e.key === "2") {
+        setStance("graft");
+        audio.select(700);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -273,6 +280,7 @@ export default function CombatLoop({ onCleared }: { onCleared: () => void }) {
       return;
     }
     setSelected(h.id);
+    audio.select(440);
     chargeStart.current = performance.now();
     raf.current = requestAnimationFrame(tick);
   };
@@ -315,6 +323,37 @@ export default function CombatLoop({ onCleared }: { onCleared: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      {/* first-fight tutorial */}
+      <AnimatePresence>
+        {showTutorial && resetPhase === "none" && (
+          <motion.div
+            className="absolute inset-x-0 top-6 z-40 flex justify-center px-4"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="glass-panel max-w-lg rounded-xl border border-sky-200/25 px-5 py-3.5 text-center">
+              <p className="font-term text-[10px] tracking-[0.35em] text-sky-200/80">COMBAT · FIRST WAVE</p>
+              <p className="mt-1.5 text-sm text-white/75">
+                Click a husk to target — <span className="text-sky-100">hold</span> to charge Prune — release on the pulse.
+                Switch to Graft and tap <span className="text-emerald-200">KNIT SELF</span> if you take a hit.
+              </p>
+              <button
+                className="font-term mt-2.5 text-[9px] tracking-[0.3em] text-white/35 hover:text-white/60"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  audio.click(560);
+                  setShowTutorial(false);
+                }}
+              >
+                GOT IT
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* hurt vignette */}
       <motion.div
         className="pointer-events-none absolute inset-0 z-30"

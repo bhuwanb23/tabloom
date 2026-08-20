@@ -118,8 +118,14 @@ export default function BossFight({ onWin }: { onWin: () => void }) {
   /* keyboard stance */
   useEffect(() => {
     const k = (e: KeyboardEvent) => {
-      if (e.key === "1") setStance("prune");
-      if (e.key === "2") setStance("graft");
+      if (e.key === "1") {
+        setStance("prune");
+        audio.select(520);
+      }
+      if (e.key === "2") {
+        setStance("graft");
+        audio.select(700);
+      }
     };
     window.addEventListener("keydown", k);
     return () => window.removeEventListener("keydown", k);
@@ -136,6 +142,7 @@ export default function BossFight({ onWin }: { onWin: () => void }) {
       if (phase !== "prune") return;
       if (stance !== "prune") {
         showTag("WRONG HAND");
+        audio.reject(320);
         return;
       }
       if (pct < 0.5) {

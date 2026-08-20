@@ -319,6 +319,7 @@ export default function DocPuzzle({ onSolved }: { onSolved: () => void }) {
               <motion.button
                 onClick={(e) => {
                   e.stopPropagation();
+                  audio.click(560);
                   onSolved();
                 }}
                 className="mx-auto mt-7 flex items-center gap-3 rounded-xl border border-amber-200/40 bg-amber-200/[0.07] px-7 py-3 font-term text-[11px] tracking-[0.3em] text-amber-100 transition-all hover:bg-amber-200/[0.14]"

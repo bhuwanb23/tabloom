@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Home, RotateCcw } from "lucide-react";
+import { audio } from "../game/audio";
 import BranchDiagram from "./BranchDiagram";
 import Motes from "./fx/Motes";
 
@@ -145,7 +146,10 @@ export default function Credits({
           transition={{ duration: 1.6, delay: 4.4 }}
         >
           <button
-            onClick={onReplay}
+            onClick={() => {
+              audio.bloom();
+              onReplay();
+            }}
             className="flex items-center gap-2.5 rounded-xl border px-6 py-3 font-term text-[11px] tracking-[0.28em] transition-all"
             style={{ borderColor: `${e.tone}66`, background: `${e.tone}12`, color: "#eef6f2" }}
           >
@@ -153,7 +157,10 @@ export default function Credits({
             BEGIN AGAIN
           </button>
           <button
-            onClick={onTitle}
+            onClick={() => {
+              audio.click(640);
+              onTitle();
+            }}
             className="flex items-center gap-2.5 rounded-xl border border-white/[0.12] bg-white/[0.03] px-6 py-3 font-term text-[11px] tracking-[0.28em] text-white/70 transition-all hover:border-white/30 hover:text-white"
           >
             <Home size={13} />

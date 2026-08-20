@@ -52,7 +52,12 @@ function useTypewriter(text: string, active: boolean, cps = 42) {
 /* ------------------------- card beat ------------------------- */
 function CardBeat({ beat, onReady }: { beat: Extract<Beat, { k: "card" }>; onReady: (h: BeatHandle) => void }) {
   useEffect(() => {
-    onReady({ press: () => false });
+    onReady({
+      press: () => {
+        audio.click(740);
+        return false;
+      },
+    });
   }, [onReady]);
 
   const isBig = beat.style === "big";
@@ -135,8 +140,10 @@ function TerminalBeat({ beat, onReady }: { beat: Extract<Beat, { k: "t" }>; onRe
         if (Date.now() - mountedAt.current < 320) return true;
         if (!done) {
           skip();
+          audio.click(880);
           return true;
         }
+        audio.click(740);
         return false;
       },
     });
@@ -200,7 +207,7 @@ function ChoiceBeat({
   const choose = (i: number) => {
     if (picked !== null) return;
     setPicked(i);
-    audio.ui(520);
+    audio.select(520);
     window.setTimeout(() => onSelect(i), 420);
   };
 
@@ -275,7 +282,7 @@ function HotspotBeat({
   const trigger = () => {
     if (fired) return;
     setFired(true);
-    audio.ui(760);
+    audio.select(760);
     window.setTimeout(onTrigger, 350);
   };
 
@@ -421,7 +428,13 @@ function UnlockBeat({ beat, onReady }: { beat: Extract<Beat, { k: "unlock" }>; o
   const mountedAt = useRef(Date.now());
   useEffect(() => {
     audio.bloom();
-    onReady({ press: () => Date.now() - mountedAt.current < 500 });
+    onReady({
+      press: () => {
+        if (Date.now() - mountedAt.current < 500) return true;
+        audio.click(740);
+        return false;
+      },
+    });
   }, [onReady]);
 
   return (
@@ -459,7 +472,14 @@ function UnlockBeat({ beat, onReady }: { beat: Extract<Beat, { k: "unlock" }>; o
 function VisionBeat({ beat, onReady }: { beat: Extract<Beat, { k: "vision" }>; onReady: (h: BeatHandle) => void }) {
   const mountedAt = useRef(Date.now());
   useEffect(() => {
-    onReady({ press: () => Date.now() - mountedAt.current < 900 });
+    audio.click(420);
+    onReady({
+      press: () => {
+        if (Date.now() - mountedAt.current < 900) return true;
+        audio.click(520);
+        return false;
+      },
+    });
   }, [onReady]);
 
   const huge = beat.size === "huge";
@@ -495,7 +515,14 @@ function VisionBeat({ beat, onReady }: { beat: Extract<Beat, { k: "vision" }>; o
 function RevealBeat({ beat, onReady }: { beat: Extract<Beat, { k: "reveal" }>; onReady: (h: BeatHandle) => void }) {
   const mountedAt = useRef(Date.now());
   useEffect(() => {
-    onReady({ press: () => Date.now() - mountedAt.current < 700 });
+    audio.heart();
+    onReady({
+      press: () => {
+        if (Date.now() - mountedAt.current < 700) return true;
+        audio.click(560);
+        return false;
+      },
+    });
   }, [onReady]);
 
   const huge = beat.size === "huge";
@@ -588,8 +615,10 @@ function TextBeat({
         if (Date.now() - mountedAt.current < 260) return true;
         if (!done) {
           skip();
+          audio.click(880);
           return true;
         }
+        audio.click(740);
         return false;
       },
     });

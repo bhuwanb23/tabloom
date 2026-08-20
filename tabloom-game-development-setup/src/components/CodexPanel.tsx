@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, Lock, X } from "lucide-react";
 import { CODEX } from "../game/codex";
+import { audio } from "../game/audio";
 
 /* ------------------------------------------------------------------ */
 /*  CodexPanel — everything Aevum has let you remember. Locked entries */
@@ -35,7 +36,10 @@ export default function CodexPanel({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={() => {
+              audio.click(520);
+              onClose();
+            }}
           />
           <motion.aside
             className="glass-panel fixed bottom-0 right-0 top-0 z-[90] flex w-full max-w-md flex-col border-l border-emerald-200/15"
@@ -57,7 +61,10 @@ export default function CodexPanel({
                 {unlocked.length}/{CODEX.length}
               </span>
               <button
-                onClick={onClose}
+                onClick={() => {
+                  audio.click(520);
+                  onClose();
+                }}
                 className="flex h-8 w-8 items-center justify-center rounded-md border border-white/[0.08] text-white/50 transition-colors hover:border-emerald-200/30 hover:text-emerald-100"
               >
                 <X size={14} />
@@ -69,7 +76,10 @@ export default function CodexPanel({
               {CATS.map((c) => (
                 <button
                   key={c.id}
-                  onClick={() => setCat(c.id)}
+                  onClick={() => {
+                    audio.select(600);
+                    setCat(c.id);
+                  }}
                   className={`font-term rounded-md px-3.5 py-1.5 text-[10px] tracking-[0.28em] transition-all ${
                     cat === c.id
                       ? "border border-emerald-300/40 bg-emerald-300/[0.1] text-emerald-100"

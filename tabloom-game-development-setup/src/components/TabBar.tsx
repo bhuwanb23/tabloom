@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, GitBranch, Home, Lock, Plus, Volume2, VolumeX } from "lucide-react";
 import type { BranchId } from "../game/types";
+import { audio } from "../game/audio";
 
 /* ------------------------------------------------------------------ */
 /*  TabBar — the game's crown jewel: realities as browser tabs.        */
@@ -190,21 +191,30 @@ export default function TabBar({
         </div>
 
         <button
-          onClick={onCodex}
+          onClick={() => {
+            audio.click(720);
+            onCodex();
+          }}
           className="flex h-7 w-7 items-center justify-center rounded-md border border-white/[0.07] text-white/40 transition-colors hover:border-emerald-200/25 hover:text-emerald-200/80"
           title="codex"
         >
           <BookOpen size={13} />
         </button>
         <button
-          onClick={onMute}
+          onClick={() => {
+            if (muted) audio.click(400);
+            onMute();
+          }}
           className="flex h-7 w-7 items-center justify-center rounded-md border border-white/[0.07] text-white/40 transition-colors hover:border-emerald-200/25 hover:text-emerald-200/80"
           title={muted ? "unmute" : "mute"}
         >
           {muted ? <VolumeX size={13} /> : <Volume2 size={13} />}
         </button>
         <button
-          onClick={onHome}
+          onClick={() => {
+            audio.click(640);
+            onHome();
+          }}
           className="flex h-7 w-7 items-center justify-center rounded-md border border-white/[0.07] text-white/40 transition-colors hover:border-emerald-200/25 hover:text-emerald-200/80"
           title="return to title"
         >
