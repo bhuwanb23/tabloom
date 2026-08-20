@@ -16,6 +16,9 @@ import InvariantDiagram from "./InvariantDiagram";
 import MirrorPool from "./MirrorPool";
 import QuietGraft from "./QuietGraft";
 import MemoryPlayback from "./MemoryPlayback";
+import BossFight from "./BossFight";
+import ExploreLayer from "./ExploreLayer";
+import Carving from "./Carving";
 import VnScene from "./VnScene";
 import GraftCast from "./fx/GraftCast";
 import StaticNoise from "./fx/StaticNoise";
@@ -63,7 +66,7 @@ export default function GameShell({
   const [sennHere, setSennHere] = useState(Boolean(initial.flags.sennHere));
   const [sennBurst, setSennBurst] = useState(false);
   const [overlay, setOverlay] = useState<
-    "graft" | "combat" | "prune" | "docs" | "diagram" | "spot" | "graftQuiet" | "memory" | null
+    "graft" | "combat" | "prune" | "docs" | "diagram" | "spot" | "graftQuiet" | "memory" | "boss" | "carving" | null
   >(null);
   const [transitioning, setTransitioning] = useState(false);
   const [flash, setFlash] = useState<"root" | "white" | "cold" | "tear" | null>(null);
@@ -354,6 +357,14 @@ export default function GameShell({
       setOverlay("memory");
       return;
     }
+    if (beat.k === "boss") {
+      setOverlay("boss");
+      return;
+    }
+    if (beat.k === "carving") {
+      setOverlay("carving");
+      return;
+    }
     if (beat.k === "awaitTab" && beat.branch === branch) {
       // already standing in the awaited reality — linger, then move on
       const t = window.setTimeout(() => setIdx((i) => i + 1), 2600);
@@ -375,6 +386,8 @@ export default function GameShell({
     /* auto-advancing beats own their own clock — clicks must not jump them */
     const k = queue[idx]?.k;
     if (k === "hold" || k === "fx" || k === "set" || k === "codex" || k === "coh" || k === "setTab") return;
+    /* exploration owns its own exit — clicking the scenery must not skip it */
+    if (k === "explore") return;
     const now = Date.now();
     if (now - lastPress.current < 180) return;
     lastPress.current = now;
@@ -694,6 +707,30 @@ export default function GameShell({
         {/* act vi — what the drawer was holding */}
         <AnimatePresence>
           {overlay === "memory" && <MemoryPlayback onDone={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act vii — the frost-curse heart, properly */}
+        <AnimatePresence>
+          {overlay === "boss" && <BossFight onWin={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act viii — the inscription at the base */}
+        <AnimatePresence>
+          {overlay === "carving" && beat?.k === "carving" && (
+            <Carving lines={beat.lines} onDone={closeOverlayAdvance} />
+          )}
+        </AnimatePresence>
+
+        {/* act viii — fragments to find, and one way onward */}
+        <AnimatePresence>
+          {beat?.k === "explore" && !overlay && (
+            <ExploreLayer
+              finds={beat.finds}
+              exit={beat.exit}
+              onFind={() => setCoherence((c) => clampCoh(c + 2))}
+              onExit={() => insertThen(beat.exit.then)}
+            />
+          )}
         </AnimatePresence>
 
         {/* toasts */}

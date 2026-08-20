@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 /*  with the fifteen shadows he keeps casting.                         */
 /* ------------------------------------------------------------------ */
 
-export type AriAspect = "archivist" | "oathblade" | "patient";
+export type AriAspect = "archivist" | "oathblade" | "patient" | "composite";
 export type AriPose = "lying" | "sitting" | "standing" | "weary";
 
 function Lying({ rim }: { rim: string }) {
@@ -73,6 +73,64 @@ function Weary({ rim }: { rim: string }) {
 }
 
 function Standing({ aspect, rim }: { aspect: AriAspect; rim: string }) {
+  if (aspect === "composite") {
+    /* all of them at once — coat AND cloak AND blade, threaded with root-light */
+    return (
+      <svg viewBox="0 0 160 240" className="h-full w-full overflow-visible" style={{ filter: "blur(1.2px)" }}>
+        <defs>
+          <linearGradient id="cmp-rim" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stopColor="#2c8f6b" />
+            <stop offset="55%" stopColor="#7ff5c9" />
+            <stop offset="100%" stopColor="#ffd9a3" />
+          </linearGradient>
+          <filter id="cmp-glow" x="-70%" y="-70%" width="240%" height="240%">
+            <feGaussianBlur stdDeviation="3.6" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* the aura of everything carried */}
+        <ellipse cx="80" cy="140" rx="52" ry="96" fill="rgba(127,245,201,0.07)" style={{ animation: "breathe 6s ease-in-out infinite", transformOrigin: "80px 140px" }} />
+
+        {/* ghost-layers of the earlier aspects, faint, offset — they are still in there */}
+        <g opacity="0.22">
+          <path d="M80 40 C 92 40, 97 51, 96 62 C 105 78, 108 104, 107 134 L 109 214 L 92 214 L 89 152 L 84 152 L 80 214 L 63 214 L 65 134 C 65 104, 62 78, 64 62 C 63 51, 68 40, 80 40 Z" fill="#7ff5c9" transform="translate(-7,0)" />
+          <path d="M80 40 C 92 40, 97 51, 96 62 C 105 78, 108 104, 107 134 L 109 214 L 92 214 L 89 152 L 84 152 L 80 214 L 63 214 L 65 134 C 65 104, 62 78, 64 62 C 63 51, 68 40, 80 40 Z" fill="#ffd9a3" transform="translate(7,0)" />
+        </g>
+
+        {/* long coat with a war-cloak hem */}
+        <path
+          d="M80 34 C 95 34, 102 47, 100 60 C 113 78, 118 104, 118 136 L 124 216 L 110 220 L 102 208 L 94 222 L 86 206 L 76 220 L 68 206 L 56 216 L 44 212 L 44 136 C 44 104, 49 78, 60 60 C 58 47, 65 34, 80 34 Z"
+          fill="rgba(4,6,10,0.95)"
+        />
+        <circle cx="80" cy="21" r="15" fill="rgba(4,6,10,0.96)" />
+
+        {/* the oathblade, carried low and easy */}
+        <path d="M118 60 L 106 168" stroke="rgba(4,6,10,0.9)" strokeWidth="4.5" strokeLinecap="round" />
+        <path d="M118 60 L 122 46" stroke="url(#cmp-rim)" strokeWidth="2.4" strokeLinecap="round" filter="url(#cmp-glow)" />
+
+        {/* archivist strap + satchel */}
+        <path d="M64 58 L 104 116" stroke="rgba(20,26,34,0.9)" strokeWidth="5.5" strokeLinecap="round" />
+        <path d="M98 110 L 114 106 L 116 124 L 100 128 Z" fill="rgba(4,6,10,0.95)" />
+
+        {/* root-light grafted through the whole figure — the thing that's actually new */}
+        <g stroke="url(#cmp-rim)" strokeWidth="1.7" fill="none" strokeLinecap="round" filter="url(#cmp-glow)" opacity="0.9">
+          <path d="M80 44 C 72 70, 84 88, 76 118 C 70 142, 82 160, 78 190" />
+          <path d="M66 76 C 56 92, 58 110, 64 124" />
+          <path d="M96 82 C 108 98, 106 118, 98 132" />
+        </g>
+        {/* the heart-point: where everything grafted meets */}
+        <circle cx="80" cy="104" r="4.2" fill="#ffe9b3" filter="url(#cmp-glow)" style={{ animation: "pulseglow 3s ease-in-out infinite" }} />
+
+        {/* bright, level rim */}
+        <path d="M60 60 C 58 47, 65 34, 80 34" stroke={rim} strokeWidth="1.9" fill="none" opacity="0.7" strokeLinecap="round" />
+        <path d="M67 8 C 74 4, 86 4, 93 9" stroke={rim} strokeWidth="1.4" fill="none" opacity="0.5" strokeLinecap="round" />
+      </svg>
+    );
+  }
   if (aspect === "patient") {
     /* convalescent — narrower, slightly stooped, robe not coat */
     return (

@@ -19,7 +19,33 @@ function Layer({ color, dx, dy, opacity }: { color: string; dx: number; dy: numb
   );
 }
 
-export default function DeadAri({ className = "" }: { className?: string }) {
+export default function DeadAri({ className = "", stable = false }: { className?: string; stable?: boolean }) {
+  if (stable) {
+    /* the real thing, seen properly: lying still, at rest, root-grown */
+    return (
+      <div className={`pointer-events-none no-select ${className}`} aria-hidden>
+        <svg viewBox="0 0 240 120" className="h-full w-full overflow-visible" style={{ filter: "blur(1.1px)" }}>
+          {/* laid out on the plinth, hands folded */}
+          <path
+            d="M24 92 C 32 68, 58 58, 96 62 C 112 64, 122 70, 138 70 C 176 70, 208 76, 220 86 C 226 90, 226 100, 218 102 L 34 106 C 22 106, 18 98, 24 92 Z"
+            fill="rgba(6,8,12,0.95)"
+          />
+          <ellipse cx="46" cy="66" rx="15" ry="12.5" fill="rgba(6,8,12,0.96)" />
+          {/* folded hands */}
+          <path d="M104 64 C 114 56, 128 56, 138 62" stroke="rgba(6,8,12,0.95)" strokeWidth="10" strokeLinecap="round" fill="none" />
+          {/* roots grown through him — gently, over a long time */}
+          <g stroke="#7ff5c9" strokeWidth="1.5" fill="none" opacity="0.55" strokeLinecap="round" style={{ filter: "drop-shadow(0 0 4px rgba(127,245,201,0.5))" }}>
+            <path d="M70 70 C 78 56, 92 52, 104 56" />
+            <path d="M150 70 C 160 58, 176 56, 190 60" />
+            <path d="M120 66 C 122 52, 118 44, 110 38" />
+          </g>
+          <circle cx="110" cy="36" r="2.6" fill="#ffd9a3" style={{ filter: "drop-shadow(0 0 6px rgba(255,217,163,0.9))", animation: "pulseglow 4s ease-in-out infinite" }} />
+          {/* the same rim light Ari has always had */}
+          <path d="M34 88 C 44 70, 64 62, 92 64" stroke="#9fb4c8" strokeWidth="1.4" fill="none" opacity="0.4" strokeLinecap="round" />
+        </svg>
+      </div>
+    );
+  }
   return (
     <div className={`pointer-events-none no-select ${className}`} aria-hidden>
       <motion.div

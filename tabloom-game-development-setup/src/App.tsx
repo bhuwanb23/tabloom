@@ -36,6 +36,8 @@ function loadMeta(): MetaSave {
         act4Complete: false,
         act5Complete: false,
         act6Complete: false,
+        act7Complete: false,
+        act8Complete: false,
         muted: false,
         ...JSON.parse(raw),
       };
@@ -50,6 +52,8 @@ function loadMeta(): MetaSave {
     act4Complete: false,
     act5Complete: false,
     act6Complete: false,
+    act7Complete: false,
+    act8Complete: false,
     muted: false,
   };
 }
@@ -128,6 +132,8 @@ export default function App() {
         act4Complete: true,
         act5Complete: true,
         act6Complete: true,
+        act7Complete: true,
+        act8Complete: true,
       };
     });
     try {
@@ -151,19 +157,23 @@ export default function App() {
         <TitleScreen
           hasSave={hasSave}
           completed={
-            meta.act6Complete
-              ? 6
-              : meta.act5Complete
-                ? 5
-                : meta.act4Complete
-                  ? 4
-                  : meta.act3Complete
-                    ? 3
-                    : meta.act2Complete
-                      ? 2
-                      : meta.act1Complete
-                        ? 1
-                        : 0
+            meta.act8Complete
+              ? 8
+              : meta.act7Complete
+                ? 7
+                : meta.act6Complete
+                ? 6
+                : meta.act5Complete
+                  ? 5
+                  : meta.act4Complete
+                    ? 4
+                    : meta.act3Complete
+                      ? 3
+                      : meta.act2Complete
+                        ? 2
+                        : meta.act1Complete
+                          ? 1
+                          : 0
           }
           onBegin={begin}
           onContinue={continueRun}
@@ -185,8 +195,8 @@ export default function App() {
 
       {phase === "end" && endStats && (
         <EndOfAct
-          act={6}
-          completedActs={[1, 2, 3, 4, 5, 6]}
+          act={8}
+          completedActs={[1, 2, 3, 4, 5, 6, 7, 8]}
           stats={{ ...endStats, codexCount: endCodexCount.current || endStats.codexCount }}
           codexCount={endCodexCount.current || meta.codex.length}
           codexTotal={CODEX.length}

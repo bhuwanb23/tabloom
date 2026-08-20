@@ -83,7 +83,14 @@ export type Beat =
   | { k: "diagram" }
   | { k: "spot" }
   | { k: "graftQuiet" }
-  | { k: "memory" };
+  | { k: "memory" }
+  | { k: "boss" }
+  | {
+      k: "explore";
+      finds: { id: string; label: string; rect: [number, number, number, number]; title: string; body: string }[];
+      exit: { id: string; label: string; sub?: string; rect: [number, number, number, number]; then: Beat[] };
+    }
+  | { k: "carving"; lines: string[] };
 
 export interface SceneMeta {
   url: string;
@@ -124,6 +131,8 @@ export interface MetaSave {
   act4Complete: boolean;
   act5Complete: boolean;
   act6Complete: boolean;
+  act7Complete: boolean;
+  act8Complete: boolean;
   muted: boolean;
 }
 

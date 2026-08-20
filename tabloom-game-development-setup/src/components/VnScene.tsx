@@ -6,6 +6,10 @@ import chamberBg from "../assets/images/curse-heart-chamber.jpg";
 import wardBg from "../assets/images/ora-ward.jpg";
 import archiveBg from "../assets/images/veyr-archive.jpg";
 import edenBg from "../assets/images/eden-garden.jpg";
+import rootBg from "../assets/images/root-below.jpg";
+import siteBg from "../assets/images/dead-ari-site.jpg";
+import DeadAri from "./sprites/DeadAri";
+import SennAvatar from "./SennAvatar";
 import ShadowWall from "./ShadowWall";
 import AriSprite, { type AriPose } from "./sprites/AriSprite";
 import { KaelSprite, MiraelSprite, SoldierSprite, CastPresence } from "./sprites/CastSprites";
@@ -243,12 +247,36 @@ function NaraScene({ flags }: { flags: Flags }) {
 /* ------------------------- KARTH-MUUN · WIDE ------------------------- */
 function KarthWide({ flags }: { flags: Flags }) {
   const spot = (flags.ariSpot as string | undefined) ?? "karth";
+  const fullThaw = Boolean(flags.fullThaw); // act vii — the loop is broken
 
   return (
     <>
       <div style={parallaxStyle(0.3)} className="absolute inset-[-2%]">
-        <KenBurns src={karthBg} tone="karth" />
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            filter: fullThaw
+              ? "hue-rotate(-28deg) saturate(1.35) brightness(1.16) contrast(0.97)"
+              : "hue-rotate(0deg) saturate(1) brightness(1)",
+          }}
+          transition={{ duration: 5, ease: "easeInOut" }}
+        >
+          <KenBurns src={karthBg} tone="karth" />
+        </motion.div>
       </div>
+
+      {/* the thaw grade — green light coming up out of ground that was ice */}
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(255,214,150,0.16) 0%, transparent 40%), radial-gradient(ellipse at 50% 96%, rgba(96,200,140,0.4), transparent 62%)",
+          mixBlendMode: "screen",
+        }}
+        animate={{ opacity: fullThaw ? 1 : 0 }}
+        transition={{ duration: 5, ease: "easeInOut" }}
+      />
+      {fullThaw && <Motes tone="root" count={26} className="absolute inset-0 h-full w-full opacity-65" />}
 
       {/* faint living aurora over the painted one */}
       <div className="absolute inset-x-[-6%] top-[2%] h-[34%] opacity-50">
@@ -470,14 +498,23 @@ function ChamberScene({ flags }: { flags: Flags }) {
         draggable={false}
       />
 
-      {/* the heart's red pulse, breathing upward through the ice */}
-      <div
+      {/* the heart's red pulse — extinguished once it is finally broken */}
+      <motion.div
         className="absolute left-1/2 top-[8%] h-[52%] w-[46%] -translate-x-1/2"
         style={{
           background: "radial-gradient(ellipse at 50% 40%, rgba(255,70,50,0.22), rgba(160,20,20,0.1) 45%, transparent 70%)",
           animation: "breathe 1.4s ease-in-out infinite",
           mixBlendMode: "screen",
         }}
+        animate={{ opacity: flags.heartDead ? 0 : 1 }}
+        transition={{ duration: 4 }}
+      />
+      {/* what is left when it stops: cold, grey, quiet */}
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "radial-gradient(ellipse at 50% 30%, rgba(120,130,150,0.14), transparent 60%)", mixBlendMode: "screen" }}
+        animate={{ opacity: flags.heartDead ? 1 : 0 }}
+        transition={{ duration: 4 }}
       />
 
       {/* after the prune — the cracked seam bleeds embers */}
@@ -678,6 +715,81 @@ function EdenScene({ flags }: { flags: Flags }) {
   );
 }
 
+/* ------------------------- THE ROOT BELOW · REAL ACCESS ------------------------- */
+/* deliberately NOT act iii: no static, no chromatic split, no drift-on-rails.
+   he is allowed to be here, and the frame is steady because of it. */
+function RootScene({ flags }: { flags: Flags }) {
+  const atSite = Boolean(flags.site);
+
+  return (
+    <>
+      <motion.img
+        key={atSite ? "site" : "roots"}
+        src={atSite ? siteBg : rootBg}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        initial={{ scale: 1.05, opacity: 0 }}
+        animate={{ scale: 1.11, opacity: 1 }}
+        transition={{
+          scale: { duration: 44, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+          opacity: { duration: 2.2 },
+        }}
+        draggable={false}
+      />
+
+      {/* corpse-light seeping from the dead branches */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: "radial-gradient(ellipse at 50% 30%, rgba(255,196,110,0.12), transparent 60%)",
+          mixBlendMode: "screen",
+          animation: "pulseglow 7s ease-in-out infinite",
+        }}
+      />
+
+      {/* ari — composite, standing steady */}
+      <div className="absolute" style={{ left: atSite ? "20%" : "38%", top: "38%", width: "11%", height: "44%" }}>
+        <AriSprite aspect="composite" pose="standing" rim="#bfffe2" />
+      </div>
+
+      {/* the one who came before */}
+      {atSite && (
+        <motion.div
+          className="absolute"
+          style={{ left: "44%", top: "56%", width: "34%", height: "20%" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 3, delay: 0.6 }}
+        >
+          <DeadAri stable className="h-full w-full" />
+        </motion.div>
+      )}
+
+      {/* senn, diminished — smaller and lower than he has ever been */}
+      <AnimatePresence>
+        {Boolean(flags.sennSmall) && (
+          <motion.div
+            className="absolute"
+            style={{ left: "72%", top: "72%" }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 0.9, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <SennAvatar size={52} lookAway={Boolean(flags.sennAway)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Motes tone="dust" count={24} className="absolute inset-0 h-full w-full opacity-65" />
+      <Motes tone="ember" count={10} className="absolute inset-0 h-full w-full opacity-45" />
+
+      <div className="absolute inset-x-0 bottom-0 h-[44%] bg-gradient-to-t from-black/82 via-black/28 to-transparent" />
+      <div className="pointer-events-none absolute inset-0" style={{ boxShadow: "inset 0 0 200px rgba(0,0,0,0.72)" }} />
+    </>
+  );
+}
+
 /* ------------------------- SHELL ------------------------- */
 
 export default function VnScene({
@@ -689,11 +801,20 @@ export default function VnScene({
 }) {
   const ref = useParallax<HTMLDivElement>();
 
-  /* the vision overrides every branch — you are not in control right now */
+  /* act iii: the vision overrides every branch — you are not in control right now */
   if (flags.rootBelow) {
     return (
       <div className="absolute inset-0 overflow-hidden bg-black">
         <RootBelowVision showDead={Boolean(flags.deadAri)} />
+      </div>
+    );
+  }
+
+  /* act viii: the same place, entered on his own feet */
+  if (flags.rootReal) {
+    return (
+      <div ref={ref} className="absolute inset-0 overflow-hidden bg-[#07060a]">
+        <RootScene flags={flags} />
       </div>
     );
   }

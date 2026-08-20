@@ -97,7 +97,7 @@ export default function TitleScreen({
             className="group relative flex items-center gap-3 rounded-xl border border-emerald-300/40 bg-emerald-300/[0.07] px-8 py-3.5 font-term text-xs tracking-[0.3em] text-emerald-100 transition-all hover:border-emerald-200/70 hover:bg-emerald-300/[0.14] hover:shadow-[0_0_44px_rgba(127,245,201,0.25)]"
           >
             <Play size={13} className="transition-transform group-hover:scale-125" />
-            {completed >= 2 ? "REPLAY — ACTS I–VI" : completed === 1 ? "REPLAY ACT I" : "BEGIN — ACT I"}
+            {completed >= 2 ? "REPLAY — ACTS I–VIII" : completed === 1 ? "REPLAY ACT I" : "BEGIN — ACT I"}
             <span className="absolute -top-px left-1/2 h-px w-0 -translate-x-1/2 bg-emerald-200 transition-all duration-500 group-hover:w-3/4" />
           </button>
 
@@ -140,7 +140,7 @@ export default function TitleScreen({
           </p>
           <p className="font-term flex items-center gap-2 text-[9px] tracking-[0.3em] text-white/20">
             <Headphones size={10} />
-            SOUND RECOMMENDED · A STORY IN TEN ACTS — ACTS I–VI PLAYABLE
+            SOUND RECOMMENDED · A STORY IN TEN ACTS — ACTS I–VIII PLAYABLE
           </p>
         </motion.div>
       </div>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Anchor, BookOpen, Check, Eye, EyeOff, FileText, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors, Sparkle } from "lucide-react";
+import { Anchor, BookOpen, Check, Eye, EyeOff, FileText, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors, Sparkle, Sprout, Users } from "lucide-react";
 import type { RunStats } from "../game/types";
 import Motes from "./fx/Motes";
 import SennAvatar from "./SennAvatar";
@@ -103,6 +103,34 @@ const ACT_INFO: Record<
       { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
       { icon: KeyRound, label: "THE DRAWER", value: "OPEN", tone: "#ffd9a3" },
       { icon: Anchor, label: "YOUR INVARIANT", value: "KNOWN", tone: "#ffc07a" },
+      { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
+    ],
+  },
+  7: {
+    title: "Breaking the Loop",
+    sub: "KARTH-MUUN · THE LONG THAW",
+    kicker: "END OF ACT VII",
+    quote: "Some things are supposed to end once and mean it.",
+    quoteBy: "— KAEL ORIN, WATCHING THE WATER MOVE",
+    caption: "He wanted one death that stayed. It is the last thing he ever asks for.",
+    chips: [
+      { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
+      { icon: Heart, label: "CURSE-HEART", value: "BROKEN", tone: "#8a94a6" },
+      { icon: Sprout, label: "KARTH-MUUN", value: "THAWED", tone: "#7ff5c9" },
+      { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
+    ],
+  },
+  8: {
+    title: "The Proof He Wasn't Ready For",
+    sub: "THE ROOT BELOW · HE WAS THE FOURTH",
+    kicker: "END OF ACT VIII",
+    quote: "I chose the version where you kept walking.",
+    quoteBy: "— SENN, NOT ASKING TO BE FORGIVEN",
+    caption: "I would do it again tomorrow. That is the honest and unbearable part.",
+    chips: [
+      { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
+      { icon: Eye, label: "THE BODY BELOW", value: "TOUCHED", tone: "#bfffe2" },
+      { icon: Users, label: "ARIS BEFORE YOU", value: "3+", tone: "#8a94a6" },
       { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
     ],
   },
