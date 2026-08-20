@@ -281,6 +281,7 @@ export default function CombatLoop({ onCleared }: { onCleared: () => void }) {
     }
     setSelected(h.id);
     audio.select(440);
+    if (showTutorial) setShowTutorial(false);
     chargeStart.current = performance.now();
     raf.current = requestAnimationFrame(tick);
   };

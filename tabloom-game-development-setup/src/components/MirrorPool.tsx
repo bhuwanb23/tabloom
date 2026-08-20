@@ -40,11 +40,11 @@ export default function MirrorPool({ onFound }: { onFound: () => void }) {
   const wrongClick = (x: number, y: number) => {
     if (found) return;
     setMisses((m) => {
-      if (m + 1 >= 4) setHint(true);
+      if (m + 1 >= 2) setHint(true);
       return m + 1;
     });
     setRipple({ x, y, id: Date.now() });
-    audio.ui(300);
+    audio.reject(300);
   };
 
   const hit = () => {
@@ -68,8 +68,8 @@ export default function MirrorPool({ onFound }: { onFound: () => void }) {
         style={{
           left: `${s.x}%`,
           top: `${s.y}%`,
-          width: `${Math.max(s.r * 2.4, 3)}%`,
-          paddingTop: `${Math.max(s.r * 2.4, 3)}%`,
+          width: `${Math.max(s.r * 4.2, 5.5)}%`,
+          paddingTop: `${Math.max(s.r * 4.2, 5.5)}%`,
           transform: "translate(-50%, -50%)",
         }}
         onClick={(e) => {
