@@ -35,6 +35,7 @@ function loadMeta(): MetaSave {
         act3Complete: false,
         act4Complete: false,
         act5Complete: false,
+        act6Complete: false,
         muted: false,
         ...JSON.parse(raw),
       };
@@ -48,6 +49,7 @@ function loadMeta(): MetaSave {
     act3Complete: false,
     act4Complete: false,
     act5Complete: false,
+    act6Complete: false,
     muted: false,
   };
 }
@@ -118,7 +120,15 @@ export default function App() {
   const onEnd = useCallback((stats: RunStats) => {
     setMeta((m) => {
       endCodexCount.current = m.codex.length;
-      return { ...m, act1Complete: true, act2Complete: true, act3Complete: true, act4Complete: true, act5Complete: true };
+      return {
+        ...m,
+        act1Complete: true,
+        act2Complete: true,
+        act3Complete: true,
+        act4Complete: true,
+        act5Complete: true,
+        act6Complete: true,
+      };
     });
     try {
       localStorage.removeItem(RUN_KEY);
@@ -141,7 +151,19 @@ export default function App() {
         <TitleScreen
           hasSave={hasSave}
           completed={
-            meta.act5Complete ? 5 : meta.act4Complete ? 4 : meta.act3Complete ? 3 : meta.act2Complete ? 2 : meta.act1Complete ? 1 : 0
+            meta.act6Complete
+              ? 6
+              : meta.act5Complete
+                ? 5
+                : meta.act4Complete
+                  ? 4
+                  : meta.act3Complete
+                    ? 3
+                    : meta.act2Complete
+                      ? 2
+                      : meta.act1Complete
+                        ? 1
+                        : 0
           }
           onBegin={begin}
           onContinue={continueRun}
@@ -163,8 +185,8 @@ export default function App() {
 
       {phase === "end" && endStats && (
         <EndOfAct
-          act={5}
-          completedActs={[1, 2, 3, 4, 5]}
+          act={6}
+          completedActs={[1, 2, 3, 4, 5, 6]}
           stats={{ ...endStats, codexCount: endCodexCount.current || endStats.codexCount }}
           codexCount={endCodexCount.current || meta.codex.length}
           codexTotal={CODEX.length}

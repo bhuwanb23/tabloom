@@ -142,6 +142,20 @@ export const CODEX: CodexEntry[] = [
     body: "A perfect forgery has to forge everything, including the parts nobody checks. Glass Eden reproduced its own sky flawlessly — and then reflected it with a single star in the wrong colour. Every lie has one. Finding it is the whole job.",
   },
   {
+    id: "candidates",
+    cat: "people",
+    title: "The Other Candidates",
+    kicker: "fourteen who were also asked",
+    body: "Before the crown was severed, the Witness Mind measured every Ari on every branch. One could fight. One could grieve beautifully. One could be content. One was already dead. Fourteen were considered. Fourteen were, for one reason or another, finishable.",
+  },
+  {
+    id: "arisinvariant",
+    cat: "things",
+    title: "Ari's Invariant",
+    kicker: "the thing that never changed",
+    body: "Change his branch, his war, his wound, his name — and one fact holds in every version: he keeps looking. He does not stop asking after the answer stops being kind. That is why he was chosen. It is also, exactly, the handle by which he can be steered.",
+  },
+  {
     id: "invariant",
     cat: "things",
     title: "The Invariant",

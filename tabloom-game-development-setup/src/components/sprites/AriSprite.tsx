@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 /* ------------------------------------------------------------------ */
 
 export type AriAspect = "archivist" | "oathblade" | "patient";
-export type AriPose = "lying" | "sitting" | "standing";
+export type AriPose = "lying" | "sitting" | "standing" | "weary";
 
 function Lying({ rim }: { rim: string }) {
   return (
@@ -42,6 +42,32 @@ function Sitting({ rim }: { rim: string }) {
       {/* rim light down the back */}
       <path d="M64 76 C 70 62, 82 56, 90 60" stroke={rim} strokeWidth="1.8" fill="none" opacity="0.6" strokeLinecap="round" />
       <path d="M71 30 C 78 26, 88 26, 96 32" stroke={rim} strokeWidth="1.4" fill="none" opacity="0.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function Weary({ rim }: { rim: string }) {
+  /* the archivist, five acts later — shoulders lower, head heavier, coat the same */
+  return (
+    <svg viewBox="0 0 160 240" className="h-full w-full" style={{ filter: "blur(1.4px)" }}>
+      {/* coat, hanging heavier, one shoulder dropped */}
+      <path
+        d="M80 38 C 95 38, 101 50, 99 63 C 111 80, 115 106, 114 138 L 116 216 L 96 216 L 92 152 L 86 152 L 82 216 L 62 216 L 63 138 C 63 106, 59 80, 62 63 C 61 50, 66 38, 80 38 Z"
+        fill="rgba(4,6,10,0.95)"
+      />
+      {/* head, tipped forward a few degrees */}
+      <g style={{ transformOrigin: "80px 40px", transform: "rotate(5deg)" }}>
+        <circle cx="79" cy="25" r="15" fill="rgba(4,6,10,0.96)" />
+        <path d="M66 13 C 73 9, 85 9, 92 14" stroke={rim} strokeWidth="1.2" fill="none" opacity="0.32" strokeLinecap="round" />
+      </g>
+      {/* both hands down — nothing held, nothing carried */}
+      <path d="M63 84 C 56 106, 54 128, 56 146" stroke="rgba(4,6,10,0.94)" strokeWidth="9" strokeLinecap="round" fill="none" />
+      <path d="M112 86 C 118 108, 118 130, 115 148" stroke="rgba(4,6,10,0.94)" strokeWidth="9" strokeLinecap="round" fill="none" />
+      {/* satchel strap, worn thinner */}
+      <path d="M67 62 L 106 118" stroke="rgba(20,26,34,0.85)" strokeWidth="5" strokeLinecap="round" />
+      {/* the book-light is out now */}
+      <circle cx="57" cy="150" r="3.4" fill={rim} opacity="0.22" />
+      <path d="M62 63 C 61 50, 66 38, 80 38" stroke={rim} strokeWidth="1.5" fill="none" opacity="0.38" strokeLinecap="round" />
     </svg>
   );
 }
@@ -133,6 +159,7 @@ export default function AriSprite({
           <div className="h-full w-full" style={{ animation: "breathe 5.5s ease-in-out infinite" }}>
             {pose === "lying" && <Lying rim={rim} />}
             {pose === "sitting" && <Sitting rim={rim} />}
+            {pose === "weary" && <Weary rim={rim} />}
             {pose === "standing" && <Standing aspect={aspect} rim={rim} />}
           </div>
         </motion.div>

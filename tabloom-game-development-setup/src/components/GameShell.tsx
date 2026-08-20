@@ -14,6 +14,8 @@ import PruneCharge from "./PruneCharge";
 import DocPuzzle from "./DocPuzzle";
 import InvariantDiagram from "./InvariantDiagram";
 import MirrorPool from "./MirrorPool";
+import QuietGraft from "./QuietGraft";
+import MemoryPlayback from "./MemoryPlayback";
 import VnScene from "./VnScene";
 import GraftCast from "./fx/GraftCast";
 import StaticNoise from "./fx/StaticNoise";
@@ -60,7 +62,9 @@ export default function GameShell({
   const [grafted, setGrafted] = useState(initial.grafted);
   const [sennHere, setSennHere] = useState(Boolean(initial.flags.sennHere));
   const [sennBurst, setSennBurst] = useState(false);
-  const [overlay, setOverlay] = useState<"graft" | "combat" | "prune" | "docs" | "diagram" | "spot" | null>(null);
+  const [overlay, setOverlay] = useState<
+    "graft" | "combat" | "prune" | "docs" | "diagram" | "spot" | "graftQuiet" | "memory" | null
+  >(null);
   const [transitioning, setTransitioning] = useState(false);
   const [flash, setFlash] = useState<"root" | "white" | "cold" | "tear" | null>(null);
   const [fadeBlack, setFadeBlack] = useState(false);
@@ -340,6 +344,14 @@ export default function GameShell({
     }
     if (beat.k === "spot") {
       setOverlay("spot");
+      return;
+    }
+    if (beat.k === "graftQuiet") {
+      setOverlay("graftQuiet");
+      return;
+    }
+    if (beat.k === "memory") {
+      setOverlay("memory");
       return;
     }
     if (beat.k === "awaitTab" && beat.branch === branch) {
@@ -672,6 +684,16 @@ export default function GameShell({
         {/* act v — find the flaw in the reflection */}
         <AnimatePresence>
           {overlay === "spot" && <MirrorPool onFound={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act vi — the same craft, no tutorial */}
+        <AnimatePresence>
+          {overlay === "graftQuiet" && <QuietGraft onDone={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act vi — what the drawer was holding */}
+        <AnimatePresence>
+          {overlay === "memory" && <MemoryPlayback onDone={closeOverlayAdvance} />}
         </AnimatePresence>
 
         {/* toasts */}

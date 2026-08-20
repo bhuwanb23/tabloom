@@ -42,12 +42,26 @@ function NaraScene({ flags }: { flags: Flags }) {
   const pose = (flags.ariPose as AriPose | undefined) ?? "sitting";
   const spot = (flags.ariSpot as string | undefined) ?? "bed";
   const night = Boolean(flags.night);
+  const revisit = Boolean(flags.revisit); // act vi — same room, later, changed
 
   return (
     <>
       <div style={parallaxStyle(0.3)} className="absolute inset-[-2%]">
         <KenBurns src={naraBg} tone="nara" />
       </div>
+
+      {/* the revisit grade — warmer and dimmer. time has passed; so has he */}
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "linear-gradient(200deg, rgba(120,72,30,0.3), rgba(20,14,10,0.5))", mixBlendMode: "soft-light" }}
+        animate={{ opacity: revisit ? 1 : 0 }}
+        transition={{ duration: 2.6 }}
+      />
+      <motion.div
+        className="pointer-events-none absolute inset-0 bg-[#160f08]"
+        animate={{ opacity: revisit ? 0.34 : 0 }}
+        transition={{ duration: 2.6 }}
+      />
 
       <div className="absolute left-[2%] top-[6%] h-[66%] w-[32%] opacity-80">
         <RainGlass className="h-full w-full" />
@@ -140,12 +154,13 @@ function NaraScene({ flags }: { flags: Flags }) {
       </AnimatePresence>
 
       <AnimatePresence>
-        {Boolean(flags.drawerCracked) && (
+        {Boolean(flags.drawerCracked) && !flags.drawerOpen && (
           <motion.div
             className="absolute"
             style={{ left: "34%", top: "66%", width: "8%", height: "9%" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
             <svg viewBox="0 0 100 110" className="h-full w-full overflow-visible">
               <path
@@ -165,6 +180,37 @@ function NaraScene({ flags }: { flags: Flags }) {
         )}
       </AnimatePresence>
 
+      {/* the third state: open. light comes out of a drawer, which is not a thing drawers do */}
+      <AnimatePresence>
+        {Boolean(flags.drawerOpen) && (
+          <motion.div
+            className="absolute"
+            style={{ left: "31%", top: "63%", width: "14%", height: "14%" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.8 }}
+          >
+            {/* the opened mouth of it */}
+            <div
+              className="absolute left-[16%] top-[26%] h-[38%] w-[62%] rounded-[2px]"
+              style={{
+                background: "linear-gradient(180deg, rgba(255,232,190,0.9), rgba(255,190,110,0.35))",
+                boxShadow: "0 0 34px rgba(255,206,138,0.8), 0 0 90px rgba(255,180,90,0.4)",
+              }}
+            />
+            {/* the light it spills across the floor */}
+            <div
+              className="absolute left-[-30%] top-[52%] h-[70%] w-[170%]"
+              style={{
+                background: "radial-gradient(ellipse at 40% 20%, rgba(255,206,138,0.32), transparent 70%)",
+                mixBlendMode: "screen",
+              }}
+            />
+            <Motes tone="root" count={10} className="absolute inset-[-60%] h-[220%] w-[220%] opacity-70" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {spot === "bed" && (
         <div
           className="absolute"
@@ -177,9 +223,9 @@ function NaraScene({ flags }: { flags: Flags }) {
           <AriSprite aspect="archivist" pose={pose} rim="#9fb4c8" />
         </div>
       )}
-      {spot === "desk" && pose === "standing" && (
+      {spot === "desk" && (pose === "standing" || pose === "weary") && (
         <div className="absolute" style={{ left: "47.5%", top: "30%", width: "13%", height: "44%" }}>
-          <AriSprite aspect="archivist" pose="standing" rim="#9fb4c8" />
+          <AriSprite aspect="archivist" pose={pose} rim={revisit ? "#e0b48a" : "#9fb4c8"} />
         </div>
       )}
 

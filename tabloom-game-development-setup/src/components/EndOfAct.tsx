@@ -92,6 +92,20 @@ const ACT_INFO: Record<
       { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
     ],
   },
+  6: {
+    title: "What Memory Gives Back",
+    sub: "NARA-0 · THE DRAWER FINALLY OPENS",
+    kicker: "END OF ACT VI",
+    quote: "You told me to keep looking.",
+    quoteBy: "— ARI, TO THE ONE WHO WROTE IT INTO HIM",
+    caption: "It was true, and it worked. Eventually the two stop feeling different.",
+    chips: [
+      { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
+      { icon: KeyRound, label: "THE DRAWER", value: "OPEN", tone: "#ffd9a3" },
+      { icon: Anchor, label: "YOUR INVARIANT", value: "KNOWN", tone: "#ffc07a" },
+      { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
+    ],
+  },
 };
 
 const ROMANS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];

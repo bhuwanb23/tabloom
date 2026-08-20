@@ -81,7 +81,9 @@ export type Beat =
   | { k: "reveal"; text: string; size?: "big" | "huge" }
   | { k: "docs" }
   | { k: "diagram" }
-  | { k: "spot" };
+  | { k: "spot" }
+  | { k: "graftQuiet" }
+  | { k: "memory" };
 
 export interface SceneMeta {
   url: string;
@@ -121,6 +123,7 @@ export interface MetaSave {
   act3Complete: boolean;
   act4Complete: boolean;
   act5Complete: boolean;
+  act6Complete: boolean;
   muted: boolean;
 }
 
