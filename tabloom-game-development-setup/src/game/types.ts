@@ -2,9 +2,9 @@
 /*  TABLOOM — narrative engine types                                   */
 /* ------------------------------------------------------------------ */
 
-export type BranchId = "nara" | "karth" | "ora" | "void";
+export type BranchId = "nara" | "karth" | "ora" | "eden" | "void";
 
-export type Speaker = "ari" | "ari2" | "senn" | "terminal" | "veyr" | "kael" | "soldier";
+export type Speaker = "ari" | "ari2" | "senn" | "terminal" | "veyr" | "kael" | "soldier" | "mirael" | "miraelFake";
 
 export type FxId =
   | "shadowsOn"
@@ -28,7 +28,9 @@ export type FxId =
   | "duck"
   | "unduck"
   | "tear"
-  | "startle";
+  | "startle"
+  | "desaturate"
+  | "longFade";
 
 export interface Option {
   label: string;
@@ -78,7 +80,8 @@ export type Beat =
   | { k: "hold"; ms: number }
   | { k: "reveal"; text: string; size?: "big" | "huge" }
   | { k: "docs" }
-  | { k: "diagram" };
+  | { k: "diagram" }
+  | { k: "spot" };
 
 export interface SceneMeta {
   url: string;
@@ -117,6 +120,7 @@ export interface MetaSave {
   act2Complete: boolean;
   act3Complete: boolean;
   act4Complete: boolean;
+  act5Complete: boolean;
   muted: boolean;
 }
 

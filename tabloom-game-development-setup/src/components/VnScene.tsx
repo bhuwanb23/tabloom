@@ -5,6 +5,7 @@ import karthBg from "../assets/images/karth-battlefield.jpg";
 import chamberBg from "../assets/images/curse-heart-chamber.jpg";
 import wardBg from "../assets/images/ora-ward.jpg";
 import archiveBg from "../assets/images/veyr-archive.jpg";
+import edenBg from "../assets/images/eden-garden.jpg";
 import ShadowWall from "./ShadowWall";
 import AriSprite, { type AriPose } from "./sprites/AriSprite";
 import { KaelSprite, MiraelSprite, SoldierSprite, CastPresence } from "./sprites/CastSprites";
@@ -550,6 +551,87 @@ function OraScene({ flags }: { flags: Flags }) {
   );
 }
 
+/* ------------------------- GLASS EDEN ------------------------- */
+function EdenScene({ flags }: { flags: Flags }) {
+  const dead = Boolean(flags.edenDead); // the lie, caught
+  const projection = Boolean(flags.miraelFake);
+  const real = Boolean(flags.miraelReal);
+
+  return (
+    <>
+      {/* the garden. it does not move much, because nothing here does */}
+      <motion.img
+        src={edenBg}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        initial={{ scale: 1.03, opacity: 0 }}
+        animate={{
+          scale: 1.08,
+          opacity: 1,
+          filter: dead ? "saturate(0.1) brightness(0.66) contrast(1.05)" : "saturate(1) brightness(1)",
+        }}
+        transition={{
+          scale: { duration: 52, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+          opacity: { duration: 3.6, ease: "easeInOut" }, // the long, slow arrival
+          filter: { duration: 4, ease: "easeInOut" },
+        }}
+        draggable={false}
+      />
+
+      {/* honeyed air — withdrawn when the branch stops pretending */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          background: "radial-gradient(ellipse at 30% 24%, rgba(255,220,170,0.24), transparent 62%)",
+          mixBlendMode: "screen",
+        }}
+        animate={{ opacity: dead ? 0 : 1 }}
+        transition={{ duration: 4 }}
+      />
+      {!dead && <Motes tone="root" count={18} className="absolute inset-0 h-full w-full opacity-40" />}
+      {dead && <Motes tone="dust" count={22} className="absolute inset-0 h-full w-full opacity-60" />}
+
+      {/* ari — relaxed, standing easy for once */}
+      <div className="absolute" style={{ left: "31%", top: "42%", width: "9.5%", height: "42%" }}>
+        <AriSprite aspect="patient" pose="standing" rim={dead ? "#8f9aa8" : "#ffd9c8"} />
+      </div>
+
+      {/* the projection — close, warm, and very slightly too bright */}
+      <AnimatePresence>
+        {projection && (
+          <motion.div
+            className="absolute"
+            style={{ left: "45%", top: "40%", width: "8.5%", height: "44%" }}
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, transition: { duration: 3.4, ease: "easeInOut" } }}
+            transition={{ duration: 2.4 }}
+          >
+            {/* the tell: a soft halo at ~8% — invisible unless you're looking */}
+            <div
+              className="absolute inset-[-18%]"
+              style={{
+                background: "radial-gradient(ellipse, rgba(255,240,220,0.085), transparent 68%)",
+                animation: "pulseglow 7s ease-in-out infinite",
+              }}
+            />
+            <MiraelSprite className="relative h-full w-full" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* the real one — no halo */}
+      <CastPresence show={real} delay={0.2}>
+        <div className="absolute" style={{ left: "48%", top: "41%", width: "8.5%", height: "43%" }}>
+          <MiraelSprite className="h-full w-full" />
+        </div>
+      </CastPresence>
+
+      <div className="absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-black/72 via-black/22 to-transparent" />
+    </>
+  );
+}
+
 /* ------------------------- SHELL ------------------------- */
 
 export default function VnScene({
@@ -583,6 +665,7 @@ export default function VnScene({
         )
       )}
       {branch === "ora" && <OraScene flags={flags} />}
+      {branch === "eden" && <EdenScene flags={flags} />}
       {branch === "void" && (
         <div className="absolute inset-0 bg-[#05070a]">
           <Motes tone="root" count={26} className="absolute inset-0 h-full w-full opacity-60" />

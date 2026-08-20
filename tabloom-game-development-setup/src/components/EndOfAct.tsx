@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Anchor, BookOpen, Check, Eye, FileText, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors } from "lucide-react";
+import { Anchor, BookOpen, Check, Eye, EyeOff, FileText, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors, Sparkle } from "lucide-react";
 import type { RunStats } from "../game/types";
 import Motes from "./fx/Motes";
 import SennAvatar from "./SennAvatar";
@@ -75,6 +75,20 @@ const ACT_INFO: Record<
       { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
       { icon: FileText, label: "ARCHIVE", value: "IN ORDER", tone: "#ffd9a3" },
       { icon: Anchor, label: "THE INVARIANT", value: "LEARNED", tone: "#ffc07a" },
+      { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
+    ],
+  },
+  5: {
+    title: "The Reality That Almost Lied Perfectly",
+    sub: "GLASS EDEN · ONE STAR CAME BACK WRONG",
+    kicker: "END OF ACT V",
+    quote: "You were never unworthy, Ari.",
+    quoteBy: "— MIRAEL, THE REAL ONE",
+    caption: "The voice that sold it to you was warm. Be careful what's warm at you.",
+    chips: [
+      { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
+      { icon: Sparkle, label: "THE FLAW", value: "FOUND", tone: "#ffc8dd" },
+      { icon: EyeOff, label: "SENN", value: "SILENT", tone: "#7ff5c9" },
       { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
     ],
   },

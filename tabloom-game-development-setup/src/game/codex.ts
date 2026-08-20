@@ -128,6 +128,20 @@ export const CODEX: CodexEntry[] = [
     body: "Veyr's daughter. Every branch he searched, he found her — and found her dying of the same thing at the same age, no matter what he changed, bought, begged, or broke. Fifteen files. Fifteen dates. One date, really, wearing fifteen coats.",
   },
   {
+    id: "eden",
+    cat: "places",
+    title: "Glass Eden",
+    kicker: "the reality that almost lied perfectly",
+    body: "A branch with no wind, no wound and no argument — everything in permanent bloom, everything symmetrical, everything exactly as you would have asked for it. It is not a trap in the way a pit is a trap. It is a trap in the way an answer is: it stops you from asking.",
+  },
+  {
+    id: "flaw",
+    cat: "things",
+    title: "The Flaw",
+    kicker: "one star out of true",
+    body: "A perfect forgery has to forge everything, including the parts nobody checks. Glass Eden reproduced its own sky flawlessly — and then reflected it with a single star in the wrong colour. Every lie has one. Finding it is the whole job.",
+  },
+  {
     id: "invariant",
     cat: "things",
     title: "The Invariant",

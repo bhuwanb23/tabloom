@@ -495,6 +495,111 @@ export const SCENES: Scene[] = [
       { k: "card", kicker: "ACT IV", text: "THE FATHER WHO CATALOGUED A DEATH", sub: "complete · you know what he knows now", style: "big" },
     ],
   },
+
+  /* ===================== ACT V — THE REALITY THAT ALMOST LIED PERFECTLY ===================== */
+
+  /* --------------- 14 · ARRIVAL — THE ETERNAL GARDEN --------------- */
+  {
+    id: "act5-garden",
+    branch: "eden",
+    title: "GLASS-EDEN.branch",
+    meta: { url: "aevum://glass-eden/eternal-garden", tag: "golden hour, permanently", clock: "17:00" },
+    beats: [
+      { k: "card", kicker: "ACT V", text: "THE REALITY THAT ALMOST LIED PERFECTLY", sub: "glass eden · nothing here has ever needed fixing", style: "big" },
+      set("archive", false),
+      set("weight", false),
+      set("edenDead", false),
+      set("miraelFake", false),
+      set("miraelReal", false),
+      set("sennWatch", false),
+      codex("eden"),
+      { k: "hold", ms: 3800 },
+      n("Golden hour. Not arriving, not leaving — simply golden hour, the way a held note is a note."),
+      { k: "hold", ms: 2200 },
+      n("Petals hang in the air without falling. The hedges are exact. There is no wind, and nothing here has ever needed fixing."),
+      n("Ari stands in it and feels his shoulders come down for the first time in five acts."),
+      d("ari", "…Is it allowed to just be nice?"),
+      d("senn", "Sometimes. Rarely."),
+    ],
+  },
+
+  /* --------------- 15 · THE ONE WHO SAYS THE RIGHT THINGS --------------- */
+  {
+    id: "act5-projection",
+    branch: "eden",
+    title: "GLASS-EDEN.branch",
+    meta: { url: "aevum://glass-eden/eternal-garden", tag: "warm · close · kind", clock: "17:00" },
+    beats: [
+      set("miraelFake"),
+      { k: "hold", ms: 2400 },
+      n("Someone is walking toward him across a lawn that has never been walked on, and she is smiling like she's been waiting a polite amount of time."),
+      d("miraelFake", "There you are. I kept the light on."),
+      d("ari", "Mirael. You're — this is the wrong branch. You were on the ice."),
+      d("miraelFake", "I was. And then I wasn't, and this happened instead. Isn't that lovely? Come sit. Nothing needs doing today."),
+      d("ari", "Nothing needs doing."),
+      d("miraelFake", "Nothing. Not the tabs, not the tree, not the man with the knife. You did enough, Ari. You've been so tired for so long — I've watched you carry it."),
+      d("ari", "You don't know what I've been carrying."),
+      d("miraelFake", "I know you never once put it down. Put it down. Stay. You could be happy here — and you'd deserve to be. You always deserved to be."),
+      n("It is the kindest thing anyone has said to him in the whole of this story."),
+      n("Senn says nothing at all."),
+      { k: "hold", ms: 2600 },
+      d("ari", "…Senn?"),
+      d("senn", "Go and look at the pool, Ari."),
+      d("ari", "That's not an answer either."),
+      d("senn", "No. But it's the one you can check."),
+      {
+        k: "hotspot",
+        id: "pool",
+        label: "THE MIRROR POOL",
+        sub: "perfectly still, perfectly still",
+        rect: [62, 52, 14, 16],
+        then: [
+          codex("flaw"),
+          { k: "spot" },
+        ],
+      },
+    ],
+  },
+
+  /* --------------- 16 · THE COLLAPSE, AND THE TRUE LINE --------------- */
+  {
+    id: "act5-true",
+    branch: "eden",
+    title: "GLASS-EDEN.branch",
+    meta: { url: "aevum://glass-eden/eternal-garden", tag: "the colour going out", clock: "17:0—" },
+    beats: [
+      fx("desaturate", 3200),
+      n("The garden does not shatter. It simply stops insisting."),
+      n("Colour drains out of the blossom like warmth out of a hand. The petals finish falling, four seconds late."),
+      set("miraelFake", false),
+      { k: "hold", ms: 3400 },
+      n("She goes gently, the way a held note ends. No scream, no mask peeling — just a kind thing that was never there, declining to be there anymore."),
+      /* the empty frame, breathing */
+      { k: "hold", ms: 3000 },
+      n("Nobody is standing in the garden."),
+      { k: "hold", ms: 2600 },
+      /* the real one */
+      set("miraelReal"),
+      set("sennWatch"),
+      { k: "hold", ms: 2200 },
+      n("And then someone is — smaller than the other one, tireder, with frost still on her coat from a branch where the war never ended."),
+      d("mirael", "Kael said you'd end up here. Everyone ends up here once."),
+      d("ari", "It knew what I wanted to hear."),
+      d("mirael", "It always does. That's the whole architecture of the place — it doesn't lie about the world, it lies about you. Tells you the thing you'd sell a life to hear."),
+      d("ari", "That I deserved to stop. That I'd earned it."),
+      d("mirael", "That you were unworthy of anything better, and here was better, handed to you free. Listen to me, because I'm only going to be this direct once."),
+      d("mirael", "You were never unworthy, Ari. You were never a debt somebody had to forgive. You were just tired, and someone found out."),
+      { k: "hold", ms: 2400 },
+      d("ari", "Then why did it work? Why did I nearly—"),
+      d("mirael", "Because the voice that sold it to you was warm. Warm is the strongest thing there is. Be careful what's warm at you."),
+      n("At the edge of the frame, Senn watches the grass. He does not look up. He does not say a word."),
+      { k: "hold", ms: 3200 },
+      set("sennWatch", false),
+      fx("longFade", 4200),
+      { k: "hold", ms: 3600 },
+      { k: "card", kicker: "ACT V", text: "THE REALITY THAT ALMOST LIED PERFECTLY", sub: "complete · the second crack · act vi sealed", style: "big" },
+    ],
+  },
 ];
 
 export const ACT_I_TITLE = "ASH AND RAIN";

@@ -10,10 +10,13 @@ export default function SennAvatar({
   speaking = false,
   size = 130,
   arriving = false,
+  lookAway = false,
 }: {
   speaking?: boolean;
   size?: number;
   arriving?: boolean;
+  /** the pose he takes when he cannot watch what he arranged */
+  lookAway?: boolean;
 }) {
   return (
     <motion.div
@@ -111,17 +114,24 @@ export default function SennAvatar({
             }}
           />
 
-          {/* eyes */}
-          <g style={{ animation: "blinkeye 6.4s ease-in-out infinite", transformOrigin: "60px 72px" }}>
-            <ellipse cx="49" cy="72" rx="4.6" ry="5.4" fill="#10382a" />
-            <ellipse cx="71" cy="72" rx="4.6" ry="5.4" fill="#10382a" />
-            <circle cx="50.4" cy="70.4" r="1.5" fill="#eafff4" />
-            <circle cx="72.4" cy="70.4" r="1.5" fill="#eafff4" />
-          </g>
+          {/* eyes — lowered and averted when he cannot watch what he arranged */}
+          {lookAway ? (
+            <g>
+              <path d="M44.6 73 C47 69.6 51 69.6 53.4 73" stroke="#10382a" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+              <path d="M66.6 73 C69 69.6 73 69.6 75.4 73" stroke="#10382a" strokeWidth="2.4" fill="none" strokeLinecap="round" />
+            </g>
+          ) : (
+            <g style={{ animation: "blinkeye 6.4s ease-in-out infinite", transformOrigin: "60px 72px" }}>
+              <ellipse cx="49" cy="72" rx="4.6" ry="5.4" fill="#10382a" />
+              <ellipse cx="71" cy="72" rx="4.6" ry="5.4" fill="#10382a" />
+              <circle cx="50.4" cy="70.4" r="1.5" fill="#eafff4" />
+              <circle cx="72.4" cy="70.4" r="1.5" fill="#eafff4" />
+            </g>
+          )}
 
-          {/* mouth — a tiny content curve */}
+          {/* mouth — a content curve, or a flat line that isn't one */}
           <path
-            d={speaking ? "M55 84 C58 88 62 88 65 84" : "M56 84 C59 86.4 61 86.4 64 84"}
+            d={lookAway ? "M56 85 L64 85" : speaking ? "M55 84 C58 88 62 88 65 84" : "M56 84 C59 86.4 61 86.4 64 84"}
             stroke="#155d43"
             strokeWidth="1.6"
             fill="none"

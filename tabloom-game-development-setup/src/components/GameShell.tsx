@@ -13,6 +13,7 @@ import CombatLoop from "./CombatLoop";
 import PruneCharge from "./PruneCharge";
 import DocPuzzle from "./DocPuzzle";
 import InvariantDiagram from "./InvariantDiagram";
+import MirrorPool from "./MirrorPool";
 import VnScene from "./VnScene";
 import GraftCast from "./fx/GraftCast";
 import StaticNoise from "./fx/StaticNoise";
@@ -59,7 +60,7 @@ export default function GameShell({
   const [grafted, setGrafted] = useState(initial.grafted);
   const [sennHere, setSennHere] = useState(Boolean(initial.flags.sennHere));
   const [sennBurst, setSennBurst] = useState(false);
-  const [overlay, setOverlay] = useState<"graft" | "combat" | "prune" | "docs" | "diagram" | null>(null);
+  const [overlay, setOverlay] = useState<"graft" | "combat" | "prune" | "docs" | "diagram" | "spot" | null>(null);
   const [transitioning, setTransitioning] = useState(false);
   const [flash, setFlash] = useState<"root" | "white" | "cold" | "tear" | null>(null);
   const [fadeBlack, setFadeBlack] = useState(false);
@@ -204,6 +205,15 @@ export default function GameShell({
           window.setTimeout(() => audio.heart(), 520);
           window.setTimeout(() => setShaking(false), 420);
           break;
+        case "desaturate":
+          setFlag("edenDead");
+          audio.setDucked(true);
+          window.setTimeout(() => audio.setDucked(false), 4200);
+          break;
+        case "longFade":
+          setFadeBlack(true);
+          audio.setDucked(true);
+          break;
         case "staticUp":
           setFlag("staticUp");
           audio.staticBurst(0.8);
@@ -249,6 +259,7 @@ export default function GameShell({
       setQueue(sc.beats);
       setIdx(0);
       setFadeBlack(false);
+      audio.setDucked(false);
       setTabs((t) => {
         const withoutVoid = t.filter((x) => x !== "void");
         if (sc.branch === "void") return ["void"];
@@ -325,6 +336,10 @@ export default function GameShell({
     }
     if (beat.k === "diagram") {
       setOverlay("diagram");
+      return;
+    }
+    if (beat.k === "spot") {
+      setOverlay("spot");
       return;
     }
     if (beat.k === "awaitTab" && beat.branch === branch) {
@@ -526,9 +541,24 @@ export default function GameShell({
           )}
         </AnimatePresence>
 
+        {/* senn, present but silent — watching from the edge, not looking */}
+        <AnimatePresence>
+          {Boolean(flags.sennWatch) && !overlay && (
+            <motion.div
+              className="pointer-events-none absolute bottom-[26%] left-4 z-30 sm:left-8"
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 0.72, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <SennAvatar size={72} lookAway />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* senn dock during narration */}
         <AnimatePresence>
-          {sennHere && beat?.k === "n" && !overlay && (
+          {sennHere && !flags.sennWatch && beat?.k === "n" && !overlay && (
             <motion.div
               className="pointer-events-none absolute bottom-28 right-5 z-30 hidden sm:bottom-32 sm:right-8 md:block"
               initial={{ opacity: 0, x: 20 }}
@@ -637,6 +667,11 @@ export default function GameShell({
         {/* act iv — the invariant, explained to the player */}
         <AnimatePresence>
           {overlay === "diagram" && <InvariantDiagram onClose={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act v — find the flaw in the reflection */}
+        <AnimatePresence>
+          {overlay === "spot" && <MirrorPool onFound={closeOverlayAdvance} />}
         </AnimatePresence>
 
         {/* toasts */}
