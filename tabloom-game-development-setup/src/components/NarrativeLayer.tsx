@@ -22,6 +22,8 @@ const WHO: Record<string, { name: string; color: string; glow: string }> = {
   senn: { name: "SENN", color: "#7ff5c9", glow: "rgba(127,245,201,0.45)" },
   terminal: { name: "TERMINAL", color: "#8ef5c9", glow: "rgba(142,245,201,0.4)" },
   veyr: { name: "VEYR SOL AURIC", color: "#ff6a4d", glow: "rgba(255,106,77,0.4)" },
+  kael: { name: "KAEL ORIN", color: "#ffc07a", glow: "rgba(255,192,122,0.45)" },
+  soldier: { name: "DYING SOLDIER", color: "#b8c9dd", glow: "rgba(184,201,221,0.4)" },
 };
 
 function useTypewriter(text: string, active: boolean, cps = 42) {

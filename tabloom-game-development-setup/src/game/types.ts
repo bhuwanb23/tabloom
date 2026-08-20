@@ -4,7 +4,7 @@
 
 export type BranchId = "nara" | "karth" | "void";
 
-export type Speaker = "ari" | "ari2" | "senn" | "terminal" | "veyr";
+export type Speaker = "ari" | "ari2" | "senn" | "terminal" | "veyr" | "kael" | "soldier";
 
 export type FxId =
   | "shadowsOn"
@@ -23,7 +23,10 @@ export type FxId =
   | "tabBarOn"
   | "graftCast"
   | "fadeBlack"
-  | "chimeLamp";
+  | "chimeLamp"
+  | "coldFlash"
+  | "duck"
+  | "unduck";
 
 export interface Option {
   label: string;
@@ -66,7 +69,9 @@ export type Beat =
     }
   | { k: "echo"; text: string }
   | { k: "awaitTab"; branch: BranchId; text: string }
-  | { k: "unlock"; title: string; sub: string };
+  | { k: "unlock"; title: string; sub: string }
+  | { k: "combat"; wave: number }
+  | { k: "prune"; target: string };
 
 export interface SceneMeta {
   url: string;
@@ -102,6 +107,7 @@ export interface RunSave {
 export interface MetaSave {
   codex: string[];
   act1Complete: boolean;
+  act2Complete: boolean;
   muted: boolean;
 }
 

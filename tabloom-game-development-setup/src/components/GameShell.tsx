@@ -9,6 +9,8 @@ import { audio } from "../game/audio";
 import TabBar from "./TabBar";
 import NarrativeLayer, { type BeatHandle } from "./NarrativeLayer";
 import GraftGame from "./GraftGame";
+import CombatLoop from "./CombatLoop";
+import PruneCharge from "./PruneCharge";
 import VnScene from "./VnScene";
 import GraftCast from "./fx/GraftCast";
 import StaticNoise from "./fx/StaticNoise";
@@ -55,9 +57,9 @@ export default function GameShell({
   const [grafted, setGrafted] = useState(initial.grafted);
   const [sennHere, setSennHere] = useState(Boolean(initial.flags.sennHere));
   const [sennBurst, setSennBurst] = useState(false);
-  const [overlay, setOverlay] = useState<"graft" | null>(null);
+  const [overlay, setOverlay] = useState<"graft" | "combat" | "prune" | null>(null);
   const [transitioning, setTransitioning] = useState(false);
-  const [flash, setFlash] = useState<"root" | "white" | null>(null);
+  const [flash, setFlash] = useState<"root" | "white" | "cold" | null>(null);
   const [fadeBlack, setFadeBlack] = useState(false);
   const [castOn, setCastOn] = useState(false);
   const [shaking, setShaking] = useState(false);
@@ -176,6 +178,17 @@ export default function GameShell({
         case "chimeLamp":
           audio.chime();
           break;
+        case "coldFlash":
+          setFlash("cold");
+          audio.staticBurst(0.5);
+          window.setTimeout(() => setFlash(null), 900);
+          break;
+        case "duck":
+          audio.setDucked(true);
+          break;
+        case "unduck":
+          audio.setDucked(false);
+          break;
         case "staticUp":
           setFlag("staticUp");
           audio.staticBurst(0.8);
@@ -220,6 +233,7 @@ export default function GameShell({
       setSceneIdx(next);
       setQueue(sc.beats);
       setIdx(0);
+      setFadeBlack(false);
       setTabs((t) => {
         const withoutVoid = t.filter((x) => x !== "void");
         if (sc.branch === "void") return ["void"];
@@ -276,6 +290,14 @@ export default function GameShell({
     }
     if (beat.k === "graft") {
       setOverlay("graft");
+      return;
+    }
+    if (beat.k === "combat") {
+      setOverlay("combat");
+      return;
+    }
+    if (beat.k === "prune") {
+      setOverlay("prune");
       return;
     }
     if (beat.k === "awaitTab" && beat.branch === branch) {
@@ -340,10 +362,20 @@ export default function GameShell({
     insertThen(b.then);
   }, [queue, idx, insertThen]);
 
+  const closeOverlayAdvance = useCallback(() => {
+    setOverlay(null);
+    advance();
+  }, [advance]);
+
   /* ---------------- tab selection (may satisfy an awaitTab beat) ---------------- */
   const onSelectTab = useCallback(
     (b: BranchId) => {
       if (b === branch) return;
+      if (flags.tabLock === b) {
+        audio.staticBurst(0.14);
+        toast("this tab is sealed for now", "info", "karth-muun isn't finished with you");
+        return;
+      }
       switchBranch(b);
       const cur = queue[idx];
       if (cur?.k === "awaitTab" && cur.branch === b) {
@@ -389,6 +421,7 @@ export default function GameShell({
               locked={overlay !== null}
               awaiting={awaitingTab}
               glowTab={(flags.tabGlow as BranchId | undefined) ?? null}
+              disabledTabs={flags.tabLock ? [flags.tabLock as BranchId] : []}
               onSelect={onSelectTab}
               onTease={() => {
                 audio.staticBurst(0.18);
@@ -532,7 +565,9 @@ export default function GameShell({
                 background:
                   flash === "white"
                     ? "#ffffff"
-                    : "radial-gradient(ellipse at 50% 55%, rgba(200,255,230,0.5), rgba(127,245,201,0.18) 45%, transparent 75%)",
+                    : flash === "cold"
+                      ? "linear-gradient(180deg, rgba(215,236,255,0.95), rgba(180,215,255,0.9))"
+                      : "radial-gradient(ellipse at 50% 55%, rgba(200,255,230,0.5), rgba(127,245,201,0.18) 45%, transparent 75%)",
               }}
               initial={{ opacity: 0 }}
               animate={{ opacity: flash === "white" ? [0, 1, 0] : 1 }}
@@ -552,6 +587,16 @@ export default function GameShell({
         {/* graft overlay (reserved for later acts) */}
         <AnimatePresence>
           {overlay === "graft" && <GraftGame onComplete={onGraftComplete} onFail={onGraftFail} />}
+        </AnimatePresence>
+
+        {/* act ii — the loop's combat */}
+        <AnimatePresence>
+          {overlay === "combat" && <CombatLoop onCleared={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act ii — pruning the frost-curse heart */}
+        <AnimatePresence>
+          {overlay === "prune" && <PruneCharge onSuccess={closeOverlayAdvance} />}
         </AnimatePresence>
 
         {/* toasts */}

@@ -10,7 +10,7 @@ export default function Motes({
   count = 36,
 }: {
   className?: string;
-  tone?: "root" | "ice" | "dust";
+  tone?: "root" | "ice" | "dust" | "ember";
   count?: number;
 }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -42,6 +42,7 @@ export default function Motes({
       root: ["127, 245, 201", "168, 255, 219", "255, 230, 168"],
       ice: ["159, 215, 255", "200, 235, 255", "140, 190, 240"],
       dust: ["170, 175, 185", "150, 155, 165", "130, 135, 145"],
+      ember: ["255, 150, 120", "255, 110, 80", "210, 80, 60"],
     }[tone];
 
     const ps = Array.from({ length: count }, () => ({

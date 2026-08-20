@@ -71,6 +71,34 @@ export const CODEX: CodexEntry[] = [
     kicker: "to knit instead of cut",
     body: "Everything sharp in this story cuts — so root-craft teaches the opposite motion. Grafting is the mending of memory-locks: taking severed threads and weaving them back until the door remembers how to bloom.",
   },
+  {
+    id: "kael",
+    cat: "people",
+    title: "Kael Orin",
+    kicker: "the man who chose well",
+    body: "A survivor of the Karth-Muun loop who walks out of every reset unhurried and unhurtable, like punctuation that refuses the sentence. He knew the Ari that belonged to this branch — and he is particular about the difference between cutting and pruning.",
+  },
+  {
+    id: "mirael",
+    cat: "people",
+    title: "Mirael",
+    kicker: "not a prize",
+    body: "A figure at the far edge of the frozen field, watching the banners like they're about to move. She was never a prize between the men of this loop — not between Kael and the Ari who was here before, and not between anyone and what they think they're owed.",
+  },
+  {
+    id: "pruning",
+    cat: "things",
+    title: "Root-craft: Pruning",
+    kicker: "mercy with sharp edges",
+    body: "The other hand of root-craft. Where Grafting knits, Pruning cuts — hold the charge, release on the pulse, and cut exactly what asks to be cut, nothing more. Pruning is not murder. Done right, it is how a garden survives its own thorns.",
+  },
+  {
+    id: "curseheart",
+    cat: "things",
+    title: "The Frost-Curse Heart",
+    kicker: "the fist that holds the loop shut",
+    body: "A heart of black ice hanging in the glacier's throat, red-veined, beating upward into the weather of the whole branch. It holds the Karth-Muun loop tight as a fist. The true fight for it comes much later — Act I's crack was only an introduction.",
+  },
 ];
 
 export const codexById = (id: string): CodexEntry | undefined =>

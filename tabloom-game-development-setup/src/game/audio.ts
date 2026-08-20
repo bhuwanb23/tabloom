@@ -330,6 +330,15 @@ class AudioEngine {
     }
   }
 
+  /** duck everything — for the beats of silence the story insists on */
+  setDucked(d: boolean) {
+    if (this.ctx && this.master) {
+      const target = d ? 0.045 : this.muted ? 0 : 0.6;
+      this.master.gain.cancelScheduledValues(this.ctx.currentTime);
+      this.master.gain.linearRampToValueAtTime(target, this.ctx.currentTime + 0.9);
+    }
+  }
+
   get isMuted() {
     return this.muted;
   }

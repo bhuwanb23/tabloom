@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, GitBranch, Home, Plus, Volume2, VolumeX } from "lucide-react";
+import { BookOpen, GitBranch, Home, Lock, Plus, Volume2, VolumeX } from "lucide-react";
 import type { BranchId } from "../game/types";
 
 /* ------------------------------------------------------------------ */
@@ -22,6 +22,7 @@ export default function TabBar({
   locked,
   awaiting = null,
   glowTab = null,
+  disabledTabs = [],
   onSelect,
   onTease,
   onCodex,
@@ -37,6 +38,7 @@ export default function TabBar({
   locked: boolean;
   awaiting?: BranchId | null;
   glowTab?: BranchId | null;
+  disabledTabs?: BranchId[];
   onSelect: (b: BranchId) => void;
   onTease: () => void;
   onCodex: () => void;
@@ -67,6 +69,7 @@ export default function TabBar({
             const isActive = t === active;
             const isAwaited = awaiting === t;
             const isGlowing = glowTab === t;
+            const isDisabled = disabledTabs.includes(t);
             return (
               <motion.button
                 key={t}
@@ -87,21 +90,24 @@ export default function TabBar({
                     ? { boxShadow: { duration: 1.4, repeat: Infinity }, type: "spring", stiffness: 260, damping: 26 }
                     : { type: "spring", stiffness: 260, damping: 26 }
                 }
-                onClick={() => !isActive && onSelect(t)}
+                onClick={() => !isActive && !isDisabled && onSelect(t)}
                 className={`clip-tab group relative flex h-9 items-center gap-2 overflow-visible px-3.5 font-term text-[10px] tracking-[0.14em] transition-colors sm:px-4 sm:text-[11px] ${
-                  isActive
-                    ? "bg-[#101623] text-white"
-                    : "cursor-pointer bg-white/[0.03] text-white/40 hover:bg-white/[0.06] hover:text-white/70"
+                  isDisabled
+                    ? "cursor-not-allowed bg-white/[0.015] text-white/18"
+                    : isActive
+                      ? "bg-[#101623] text-white"
+                      : "cursor-pointer bg-white/[0.03] text-white/40 hover:bg-white/[0.06] hover:text-white/70"
                 } ${isAwaited ? "text-emerald-100" : ""}`}
               >
                 <span
                   className="h-1.5 w-1.5 shrink-0 rounded-full"
                   style={{
-                    background: isGlowing ? "#ffd9a3" : st.dot,
-                    boxShadow: isGlowing ? "0 0 10px rgba(255,217,163,0.9)" : `0 0 8px ${st.glow}`,
+                    background: isDisabled ? "rgba(255,255,255,0.15)" : isGlowing ? "#ffd9a3" : st.dot,
+                    boxShadow: isDisabled ? "none" : isGlowing ? "0 0 10px rgba(255,217,163,0.9)" : `0 0 8px ${st.glow}`,
                   }}
                 />
                 <span className="whitespace-nowrap">{st.label}</span>
+                {isDisabled && <Lock size={10} className="text-white/25" />}
                 {isAwaited && (
                   <motion.span
                     className="absolute -top-1.5 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-emerald-300"
