@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Anchor, BookOpen, Check, Eye, EyeOff, FileText, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors, Sparkle, Sprout, Users } from "lucide-react";
+import { Anchor, BookOpen, Check, Eye, EyeOff, FileText, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors, Sparkle, Sprout, Swords, Users } from "lucide-react";
 import type { RunStats } from "../game/types";
 import Motes from "./fx/Motes";
 import SennAvatar from "./SennAvatar";
@@ -131,6 +131,20 @@ const ACT_INFO: Record<
       { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
       { icon: Eye, label: "THE BODY BELOW", value: "TOUCHED", tone: "#bfffe2" },
       { icon: Users, label: "ARIS BEFORE YOU", value: "3+", tone: "#8a94a6" },
+      { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
+    ],
+  },
+  9: {
+    title: "What Veyr Knows That Ari Doesn't",
+    sub: "THE HEARTWOOD · THE BLADE IS ON THE GROUND",
+    kicker: "END OF ACT IX",
+    quote: "I do not kill worlds. I end their loneliness.",
+    quoteBy: "— VEYR SOL AURIC, OFFERING THE NULLROOT",
+    caption: "You were not chosen because you were the best of them. You were chosen because you were the most reusable.",
+    chips: [
+      { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
+      { icon: Swords, label: "VEYR", value: "KNEELING", tone: "#ff8a6a" },
+      { icon: Anchor, label: "THE NULLROOT", value: "OFFERED", tone: "#ff3b2e" },
       { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
     ],
   },

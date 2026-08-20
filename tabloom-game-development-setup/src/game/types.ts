@@ -90,7 +90,9 @@ export type Beat =
       finds: { id: string; label: string; rect: [number, number, number, number]; title: string; body: string }[];
       exit: { id: string; label: string; sub?: string; rect: [number, number, number, number]; then: Beat[] };
     }
-  | { k: "carving"; lines: string[] };
+  | { k: "carving"; lines: string[] }
+  | { k: "veyrFight" }
+  | { k: "truth" };
 
 export interface SceneMeta {
   url: string;
@@ -133,6 +135,7 @@ export interface MetaSave {
   act6Complete: boolean;
   act7Complete: boolean;
   act8Complete: boolean;
+  act9Complete: boolean;
   muted: boolean;
 }
 

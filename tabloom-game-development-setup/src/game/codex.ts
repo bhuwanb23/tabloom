@@ -142,6 +142,27 @@ export const CODEX: CodexEntry[] = [
     body: "A perfect forgery has to forge everything, including the parts nobody checks. Glass Eden reproduced its own sky flawlessly — and then reflected it with a single star in the wrong colour. Every lie has one. Finding it is the whole job.",
   },
   {
+    id: "heartwood",
+    cat: "places",
+    title: "The Heartwood",
+    kicker: "where the tree can actually be killed",
+    body: "Aevum's living core, and the only place the Nullroot can reach something that matters. Everything else Veyr has cut was a branch. Here, the wounds go all the way down — and the light coming out of them is the tree's own.",
+  },
+  {
+    id: "loneliness",
+    cat: "things",
+    title: "“I End Their Loneliness”",
+    kicker: "veyr's actual thesis",
+    body: "He does not believe he destroys worlds. He believes each branch is a separate room in which the same girl dies alone, unwitnessed and unrepeated — and that collapsing them into one is the only mercy left. The horror of the argument is how much of it is arithmetic.",
+  },
+  {
+    id: "incentive",
+    cat: "things",
+    title: "The Mind's Incentive",
+    kicker: "why it wanted the one who never stops",
+    body: "A Witness that cannot act needs someone who can. But an agent who finishes his task goes home. An agent who never finishes never leaves. The invariant that made Ari perfect was never his strength — it was his inability to be done, which makes him the one candidate who can be spent forever.",
+  },
+  {
     id: "composite",
     cat: "people",
     title: "Ari, Composite",

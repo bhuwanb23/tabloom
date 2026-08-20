@@ -19,6 +19,8 @@ import MemoryPlayback from "./MemoryPlayback";
 import BossFight from "./BossFight";
 import ExploreLayer from "./ExploreLayer";
 import Carving from "./Carving";
+import VeyrFight from "./VeyrFight";
+import TheTruth from "./TheTruth";
 import VnScene from "./VnScene";
 import GraftCast from "./fx/GraftCast";
 import StaticNoise from "./fx/StaticNoise";
@@ -66,7 +68,19 @@ export default function GameShell({
   const [sennHere, setSennHere] = useState(Boolean(initial.flags.sennHere));
   const [sennBurst, setSennBurst] = useState(false);
   const [overlay, setOverlay] = useState<
-    "graft" | "combat" | "prune" | "docs" | "diagram" | "spot" | "graftQuiet" | "memory" | "boss" | "carving" | null
+    | "graft"
+    | "combat"
+    | "prune"
+    | "docs"
+    | "diagram"
+    | "spot"
+    | "graftQuiet"
+    | "memory"
+    | "boss"
+    | "carving"
+    | "veyrFight"
+    | "truth"
+    | null
   >(null);
   const [transitioning, setTransitioning] = useState(false);
   const [flash, setFlash] = useState<"root" | "white" | "cold" | "tear" | null>(null);
@@ -363,6 +377,14 @@ export default function GameShell({
     }
     if (beat.k === "carving") {
       setOverlay("carving");
+      return;
+    }
+    if (beat.k === "veyrFight") {
+      setOverlay("veyrFight");
+      return;
+    }
+    if (beat.k === "truth") {
+      setOverlay("truth");
       return;
     }
     if (beat.k === "awaitTab" && beat.branch === branch) {
@@ -712,6 +734,16 @@ export default function GameShell({
         {/* act vii — the frost-curse heart, properly */}
         <AnimatePresence>
           {overlay === "boss" && <BossFight onWin={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act ix — the grieving father */}
+        <AnimatePresence>
+          {overlay === "veyrFight" && <VeyrFight onWin={closeOverlayAdvance} />}
+        </AnimatePresence>
+
+        {/* act ix — the point of the whole game */}
+        <AnimatePresence>
+          {overlay === "truth" && <TheTruth onDone={closeOverlayAdvance} />}
         </AnimatePresence>
 
         {/* act viii — the inscription at the base */}

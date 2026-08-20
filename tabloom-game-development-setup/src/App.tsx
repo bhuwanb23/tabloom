@@ -38,6 +38,7 @@ function loadMeta(): MetaSave {
         act6Complete: false,
         act7Complete: false,
         act8Complete: false,
+        act9Complete: false,
         muted: false,
         ...JSON.parse(raw),
       };
@@ -54,6 +55,7 @@ function loadMeta(): MetaSave {
     act6Complete: false,
     act7Complete: false,
     act8Complete: false,
+    act9Complete: false,
     muted: false,
   };
 }
@@ -134,6 +136,7 @@ export default function App() {
         act6Complete: true,
         act7Complete: true,
         act8Complete: true,
+        act9Complete: true,
       };
     });
     try {
@@ -157,9 +160,11 @@ export default function App() {
         <TitleScreen
           hasSave={hasSave}
           completed={
-            meta.act8Complete
-              ? 8
-              : meta.act7Complete
+            meta.act9Complete
+              ? 9
+              : meta.act8Complete
+                ? 8
+                : meta.act7Complete
                 ? 7
                 : meta.act6Complete
                 ? 6
@@ -195,8 +200,8 @@ export default function App() {
 
       {phase === "end" && endStats && (
         <EndOfAct
-          act={8}
-          completedActs={[1, 2, 3, 4, 5, 6, 7, 8]}
+          act={9}
+          completedActs={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
           stats={{ ...endStats, codexCount: endCodexCount.current || endStats.codexCount }}
           codexCount={endCodexCount.current || meta.codex.length}
           codexTotal={CODEX.length}

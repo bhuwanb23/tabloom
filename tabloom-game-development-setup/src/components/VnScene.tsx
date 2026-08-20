@@ -8,6 +8,8 @@ import archiveBg from "../assets/images/veyr-archive.jpg";
 import edenBg from "../assets/images/eden-garden.jpg";
 import rootBg from "../assets/images/root-below.jpg";
 import siteBg from "../assets/images/dead-ari-site.jpg";
+import siegeBg from "../assets/images/heartwood-siege.jpg";
+import VeyrSprite, { NullrootObject } from "./sprites/VeyrSprite";
 import DeadAri from "./sprites/DeadAri";
 import SennAvatar from "./SennAvatar";
 import ShadowWall from "./ShadowWall";
@@ -790,6 +792,75 @@ function RootScene({ flags }: { flags: Flags }) {
   );
 }
 
+/* ------------------------- THE HEARTWOOD SIEGE ------------------------- */
+function SiegeScene({ flags }: { flags: Flags }) {
+  return (
+    <>
+      <motion.img
+        src={siegeBg}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        initial={{ scale: 1.02, opacity: 0 }}
+        animate={{ scale: 1.12, opacity: 1 }}
+        transition={{
+          scale: { duration: 60, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+          opacity: { duration: 2.6 },
+        }}
+        draggable={false}
+      />
+
+      {/* the tree's wounds, bleeding root-light */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: "radial-gradient(ellipse at 44% 34%, rgba(127,245,201,0.13), transparent 58%)",
+          mixBlendMode: "screen",
+          animation: "pulseglow 8s ease-in-out infinite",
+        }}
+      />
+
+      {/* ari, composite */}
+      <div className="absolute" style={{ left: "16%", top: "36%", width: "11%", height: "46%" }}>
+        <AriSprite aspect="composite" pose="standing" rim="#bfffe2" />
+      </div>
+
+      {/* veyr — the largest character staging in the game */}
+      <AnimatePresence>
+        {Boolean(flags.veyrHere) && (
+          <motion.div
+            className="absolute"
+            style={{ left: "58%", top: "20%", width: "27%", height: "64%" }}
+            initial={{ opacity: 0, x: 44 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 3.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <VeyrSprite state={flags.veyrBeaten ? "kneel" : 0} className="h-full w-full" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* the blade, set down between them */}
+      <AnimatePresence>
+        {Boolean(flags.nullrootOffered) && (
+          <motion.div
+            className="absolute"
+            style={{ left: "42%", top: "44%", width: "7%", height: "38%" }}
+            initial={{ opacity: 0, y: -30, rotate: -8 }}
+            animate={{ opacity: 1, y: 0, rotate: 0 }}
+            transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <NullrootObject className="h-full w-full" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Motes tone="ember" count={22} className="absolute inset-0 h-full w-full opacity-55" />
+      <div className="absolute inset-x-0 bottom-0 h-[44%] bg-gradient-to-t from-black/82 via-black/26 to-transparent" />
+    </>
+  );
+}
+
 /* ------------------------- SHELL ------------------------- */
 
 export default function VnScene({
@@ -806,6 +877,15 @@ export default function VnScene({
     return (
       <div className="absolute inset-0 overflow-hidden bg-black">
         <RootBelowVision showDead={Boolean(flags.deadAri)} />
+      </div>
+    );
+  }
+
+  /* act ix: the heartwood */
+  if (flags.siege) {
+    return (
+      <div ref={ref} className="absolute inset-0 overflow-hidden bg-[#05070a]">
+        <SiegeScene flags={flags} />
       </div>
     );
   }
