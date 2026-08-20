@@ -195,6 +195,19 @@ export default function RootChamber({ flags }: { flags: Flags }) {
         />
       )}
 
+      {/* the blade, waiting between them until a hand decides */}
+      {Boolean(flags.chamber10) && !flags.bladeDown && !flags.bladeHeld && (
+        <motion.div
+          className="absolute"
+          style={{ left: "48%", top: "48%", width: "5.5%", height: "28%", marginLeft: "-2.75%" }}
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 0.9, y: 0 }}
+          transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <NullrootObject className="h-full w-full" />
+        </motion.div>
+      )}
+
       {/* the blade, if it was set down */}
       {Boolean(flags.bladeDown) && (
         <motion.div

@@ -10,6 +10,7 @@ class AudioEngine {
   private master: GainNode | null = null;
   private rainGain: GainNode | null = null;
   private windGain: GainNode | null = null;
+  private emberGain: GainNode | null = null;
   private droneGain: GainNode | null = null;
   private droneOscs: OscillatorNode[] = [];
   private started = false;
@@ -131,6 +132,30 @@ class AudioEngine {
       const g = this.windGain;
       window.setTimeout(() => g.disconnect(), 2000);
       this.windGain = null;
+    }
+
+    // EMBERS (void / root below) — sparse crackle bed
+    if (branch === "void" && !this.emberGain) {
+      const src = ctx.createBufferSource();
+      src.buffer = this.noiseBuffer();
+      src.loop = true;
+      const bp = ctx.createBiquadFilter();
+      bp.type = "bandpass";
+      bp.frequency.value = 780;
+      bp.Q.value = 1.4;
+      const hp = ctx.createBiquadFilter();
+      hp.type = "highpass";
+      hp.frequency.value = 180;
+      this.emberGain = ctx.createGain();
+      this.emberGain.gain.value = 0;
+      this.emberGain.gain.linearRampToValueAtTime(0.028, t + 2.8);
+      src.connect(bp).connect(hp).connect(this.emberGain).connect(this.master);
+      src.start();
+    } else if (this.emberGain && branch !== "void") {
+      this.emberGain.gain.linearRampToValueAtTime(0.0001, t + 1.5);
+      const g = this.emberGain;
+      window.setTimeout(() => g.disconnect(), 2000);
+      this.emberGain = null;
     }
 
     // drone pitch shifts slightly per branch
@@ -361,9 +386,9 @@ class AudioEngine {
   /** duck everything — for the beats of silence the story insists on */
   setDucked(d: boolean) {
     if (this.ctx && this.master) {
-      const target = d ? 0.045 : this.muted ? 0 : 0.6;
+      const target = d ? 0.008 : this.muted ? 0 : 0.6;
       this.master.gain.cancelScheduledValues(this.ctx.currentTime);
-      this.master.gain.linearRampToValueAtTime(target, this.ctx.currentTime + 0.9);
+      this.master.gain.linearRampToValueAtTime(target, this.ctx.currentTime + (d ? 1.2 : 0.9));
     }
   }
 

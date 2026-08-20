@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 import naraBg from "../../assets/images/nara-apartment.jpg";
+import streetsBg from "../../assets/images/nara-streets.jpg";
 import RainGlass from "../fx/RainGlass";
 import Motes from "../fx/Motes";
 import AriSprite from "../sprites/AriSprite";
 import { MiraelSprite } from "../sprites/CastSprites";
 
 /* ------------------------------------------------------------------ */
-/*  Epilogue — Nara-0, where it started. Framed on the window and the  */
-/*  rain, because that is the first thing the game ever showed you.    */
-/*  Three moods: together (regrowth), alone (merge), her alone         */
-/*  (sundering).                                                       */
+/*  Epilogue — Nara-0, where it started. Regrowth walks the rain       */
+/*  streets; sundering returns to the apartment lamp; merge leaves     */
+/*  Ari alone in a hollow frame.                                       */
 /* ------------------------------------------------------------------ */
 
 export type EpilogueMode = "together" | "alone" | "herAlone";
@@ -22,24 +22,33 @@ export default function Epilogue({ mode, lampFlicker = false }: { mode: Epilogue
         ? "saturate(0.25) brightness(0.6)"
         : "saturate(0.5) brightness(0.72)";
 
+  const bg = mode === "together" ? streetsBg : naraBg;
+
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#0b0e14]">
-      {/* the same room, the same rain, a long time later */}
+      {/* full circle for regrowth; apartment for the lamp endings */}
       <motion.img
-        src={naraBg}
+        src={bg}
         alt=""
         className="absolute inset-0 h-full w-full object-cover"
-        style={{ transformOrigin: "22% 40%", filter: grade }}
-        initial={{ scale: 1.34, opacity: 0 }}
-        animate={{ scale: 1.24, opacity: 1 }}
+        style={{ transformOrigin: mode === "together" ? "50% 55%" : "22% 40%", filter: grade }}
+        initial={{ scale: mode === "together" ? 1.18 : 1.34, opacity: 0 }}
+        animate={{ scale: mode === "together" ? 1.08 : 1.24, opacity: 1 }}
         transition={{ scale: { duration: 34, ease: "easeOut" }, opacity: { duration: 3 } }}
         draggable={false}
       />
 
       {/* rain on the glass — the first sound in the game */}
-      <div className="absolute inset-y-0 left-0 w-[58%] opacity-90">
-        <RainGlass className="h-full w-full" />
-      </div>
+      {mode !== "together" && (
+        <div className="absolute inset-y-0 left-0 w-[58%] opacity-90">
+          <RainGlass className="h-full w-full" />
+        </div>
+      )}
+      {mode === "together" && (
+        <div className="absolute inset-0 opacity-55">
+          <RainGlass className="h-full w-full" />
+        </div>
+      )}
 
       {/* warmth, or its absence */}
       <div
