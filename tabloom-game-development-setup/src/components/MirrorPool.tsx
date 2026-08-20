@@ -218,11 +218,11 @@ export default function MirrorPool({ onFound }: { onFound: () => void }) {
         </motion.p>
         {hint && !found && (
           <motion.p
-            className="font-term text-[9px] tracking-[0.3em] text-white/30"
+            className="font-term text-[9px] tracking-[0.3em] text-white/40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            LOOK BELOW THE WATERLINE · LOOK FOR WARMTH
+            SOMETHING IS WRONG IN THE REFLECTION · LOOK FOR WARMTH
           </motion.p>
         )}
       </div>

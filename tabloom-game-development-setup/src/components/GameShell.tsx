@@ -22,6 +22,7 @@ import Carving from "./Carving";
 import VeyrFight from "./VeyrFight";
 import TheTruth from "./TheTruth";
 import Credits from "./Credits";
+import BladeFork from "./BladeFork";
 import VnScene from "./VnScene";
 import GraftCast from "./fx/GraftCast";
 import StaticNoise from "./fx/StaticNoise";
@@ -438,8 +439,8 @@ export default function GameShell({
     /* auto-advancing beats own their own clock — clicks must not jump them */
     const k = queue[idx]?.k;
     if (k === "hold" || k === "fx" || k === "set" || k === "codex" || k === "coh" || k === "setTab") return;
-    /* exploration owns its own exit — clicking the scenery must not skip it */
-    if (k === "explore") return;
+      /* exploration owns its own exit — clicking the scenery must not skip it */
+    if (k === "explore" || k === "fork" || k === "act") return;
     const now = Date.now();
     if (now - lastPress.current < 180) return;
     lastPress.current = now;
@@ -794,7 +795,7 @@ export default function GameShell({
           {beat?.k === "act" && !overlay && (
             <motion.button
               className="absolute z-30"
-              style={{ left: `${beat.rect[0]}%`, top: `${beat.rect[1]}%`, width: `${beat.rect[2]}%`, height: `${beat.rect[3]}%` }}
+              style={{ left: `${beat.rect[0]}%`, top: `${Math.max(beat.rect[1] - 4, 8)}%`, width: `${Math.max(beat.rect[2], 14)}%`, height: `${Math.max(beat.rect[3], 28)}%` }}
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
@@ -806,16 +807,16 @@ export default function GameShell({
               }}
             >
               <motion.span
-                className="absolute inset-0 rounded-2xl border border-emerald-200/40"
-                style={{ background: "radial-gradient(ellipse, rgba(127,245,201,0.12), transparent 72%)" }}
-                animate={{ opacity: [0.45, 1, 0.45] }}
-                transition={{ duration: 2.8, repeat: Infinity }}
+                className="absolute inset-0 rounded-2xl border-2 border-emerald-200/50"
+                style={{ background: "radial-gradient(ellipse, rgba(127,245,201,0.18), transparent 72%)", boxShadow: "0 0 40px rgba(127,245,201,0.25)" }}
+                animate={{ opacity: [0.45, 1, 0.45], scale: [0.98, 1.02, 0.98] }}
+                transition={{ duration: 2.4, repeat: Infinity }}
               />
-              <span className="absolute left-1/2 top-full flex -translate-x-1/2 translate-y-3 flex-col items-center gap-1 whitespace-nowrap">
-                <span className="font-term rounded-md border border-emerald-200/40 bg-[#060a0e]/90 px-4 py-2 text-[11px] tracking-[0.35em] text-emerald-100">
+              <span className="absolute left-1/2 top-0 flex -translate-x-1/2 -translate-y-[120%] flex-col items-center gap-1 whitespace-nowrap">
+                <span className="font-term rounded-md border border-emerald-200/50 bg-[#060a0e]/95 px-5 py-2.5 text-[12px] tracking-[0.35em] text-emerald-100 shadow-[0_0_24px_rgba(127,245,201,0.2)]">
                   {beat.label}
                 </span>
-                {beat.sub && <span className="font-term text-[9px] tracking-[0.25em] text-white/35">{beat.sub}</span>}
+                {beat.sub && <span className="font-term text-[9px] tracking-[0.25em] text-white/45">{beat.sub}</span>}
               </span>
             </motion.button>
           )}

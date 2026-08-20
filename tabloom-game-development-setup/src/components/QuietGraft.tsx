@@ -134,27 +134,28 @@ export default function QuietGraft({ onDone }: { onDone: () => void }) {
           {NODES.map((nd, i) => {
             const reached = i <= linked;
             const isNext = i === linked + 1 && !done;
+            const isStart = i === 0 && linked === 0 && !done;
             return (
               <g key={i}>
-                {isNext && (
+                {(isNext || isStart) && (
                   <circle
                     cx={nd.x}
                     cy={nd.y}
-                    r="22"
+                    r={isStart ? 32 : 22}
                     fill="none"
-                    stroke="rgba(127,245,201,0.4)"
-                    strokeWidth="1"
-                    style={{ transformOrigin: `${nd.x}px ${nd.y}px`, animation: "breathe 2.4s ease-in-out infinite" }}
+                    stroke={isStart ? "rgba(255,217,163,0.55)" : "rgba(127,245,201,0.4)"}
+                    strokeWidth={isStart ? 1.6 : 1}
+                    style={{ transformOrigin: `${nd.x}px ${nd.y}px`, animation: "breathe 1.8s ease-in-out infinite" }}
                   />
                 )}
                 <circle
                   cx={nd.x}
                   cy={nd.y}
-                  r="9"
+                  r={isStart ? 12 : 9}
                   fill={reached ? "rgba(127,245,201,0.25)" : "rgba(8,14,12,0.85)"}
-                  stroke={reached ? "#7ff5c9" : "rgba(127,245,201,0.55)"}
-                  strokeWidth="1.8"
-                  filter={reached ? "url(#qg-glow)" : undefined}
+                  stroke={isStart ? "#ffd9a3" : reached ? "#7ff5c9" : "rgba(127,245,201,0.55)"}
+                  strokeWidth={isStart ? 2 : 1.8}
+                  filter={reached || isStart ? "url(#qg-glow)" : undefined}
                 />
               </g>
             );
@@ -187,7 +188,7 @@ export default function QuietGraft({ onDone }: { onDone: () => void }) {
           className="font-display absolute inset-x-0 -bottom-2 text-center text-lg italic text-white/45"
           animate={{ opacity: done ? 0 : 1 }}
         >
-          {linked === 0 ? "His hands already know." : linked < 3 ? "" : ""}
+          {linked === 0 ? "Trace the lit nodes — no instruction this time." : linked < 3 ? "His hands already know." : ""}
         </motion.p>
         {done && (
           <motion.p

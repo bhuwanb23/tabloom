@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, MousePointerClick, Sparkles, X } from "lucide-react";
 import type { Beat } from "../game/types";
@@ -27,6 +27,12 @@ export default function ExploreLayer({
   const [taken, setTaken] = useState<string[]>([]);
   const [open, setOpen] = useState<Find | null>(null);
   const [leaving, setLeaving] = useState(false);
+  const [showTip, setShowTip] = useState(true);
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setShowTip(false), 4200);
+    return () => window.clearTimeout(t);
+  }, []);
 
   const pick = (f: Find) => {
     if (taken.includes(f.id)) return;
@@ -109,17 +115,31 @@ export default function ExploreLayer({
         </span>
       </motion.button>
 
-      {/* counter */}
+      {/* counter + tip */}
       <motion.div
-        className="pointer-events-none absolute right-4 top-4 z-30 flex items-center gap-2 rounded-lg border border-amber-200/20 bg-black/50 px-3 py-2"
+        className="pointer-events-none absolute right-4 top-4 z-30 flex flex-col items-end gap-2"
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
       >
-        <Sparkles size={11} className="text-amber-200/80" />
-        <span className="font-term text-[10px] tracking-[0.25em] text-white/70">
-          FRAGMENTS {taken.length}/{finds.length}
-        </span>
+        <div className="flex items-center gap-2 rounded-lg border border-amber-200/20 bg-black/50 px-3 py-2">
+          <Sparkles size={11} className="text-amber-200/80" />
+          <span className="font-term text-[10px] tracking-[0.25em] text-white/70">
+            FRAGMENTS {taken.length}/{finds.length}
+          </span>
+        </div>
+        <AnimatePresence>
+          {showTip && (
+            <motion.p
+              className="rounded-md border border-white/10 bg-black/55 px-3 py-1.5 font-term text-[9px] tracking-[0.28em] text-white/45"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              OPTIONAL FRAGMENTS · LOOK AROUND
+            </motion.p>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* fragment reader */}

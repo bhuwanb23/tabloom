@@ -96,6 +96,10 @@ export type Beat =
   | { k: "veyrFight" }
   | { k: "truth" }
   | { k: "act"; id: string; label: string; sub?: string; rect: [number, number, number, number]; then: Beat[] }
+  | {
+      k: "fork";
+      options: { id: string; label: string; sub?: string; rect: [number, number, number, number]; then: Beat[] }[];
+    }
   | { k: "credits"; ending: "regrowth" | "merge" | "sundering" };
 
 export interface SceneMeta {

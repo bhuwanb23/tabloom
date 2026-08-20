@@ -190,8 +190,8 @@ export default function DocPuzzle({ onSolved }: { onSolved: () => void }) {
                 key={i}
                 className="h-1.5 w-5 rounded-full transition-all duration-500"
                 style={{
-                  background: DOCS[id].order === i ? "#ffd9a3" : "rgba(255,255,255,0.12)",
-                  boxShadow: DOCS[id].order === i ? "0 0 8px rgba(255,217,163,0.6)" : undefined,
+                  background: phase !== "play" ? "#ffd9a3" : "rgba(255,255,255,0.12)",
+                  boxShadow: phase !== "play" ? "0 0 8px rgba(255,217,163,0.6)" : undefined,
                 }}
               />
             ))}
@@ -208,7 +208,6 @@ export default function DocPuzzle({ onSolved }: { onSolved: () => void }) {
           <div className="relative grid grid-cols-3 gap-2.5 sm:grid-cols-6">
             {slots.map((id, i) => {
               const doc = DOCS[id];
-              const correct = doc.order === i;
               return (
                 <motion.div
                   key={doc.id}
@@ -242,7 +241,7 @@ export default function DocPuzzle({ onSolved }: { onSolved: () => void }) {
                   }}
                   transition={{ type: "spring", stiffness: 400, damping: 28 }}
                 >
-                  <Parchment doc={doc} gilded={phase !== "play" || correct} dragging={dragIdx === i} />
+                  <Parchment doc={doc} gilded={phase !== "play"} dragging={dragIdx === i} />
                   <div className="absolute -bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-1">
                     <GripVertical size={9} className="text-white/20" />
                     <span className="font-term text-[8px] tracking-[0.2em] text-white/25">{i + 1}</span>
