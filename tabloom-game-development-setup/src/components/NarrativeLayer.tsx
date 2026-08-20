@@ -453,6 +453,42 @@ function UnlockBeat({ beat, onReady }: { beat: Extract<Beat, { k: "unlock" }>; o
   );
 }
 
+/* ------------------------- vision beat (no chrome, no box) ------------------------- */
+function VisionBeat({ beat, onReady }: { beat: Extract<Beat, { k: "vision" }>; onReady: (h: BeatHandle) => void }) {
+  const mountedAt = useRef(Date.now());
+  useEffect(() => {
+    onReady({ press: () => Date.now() - mountedAt.current < 900 });
+  }, [onReady]);
+
+  const huge = beat.size === "huge";
+
+  return (
+    <motion.div
+      className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center px-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 1.6, ease: "easeInOut" } }}
+      transition={{ duration: 2.4, ease: "easeInOut" }}
+    >
+      <motion.p
+        className={`max-w-4xl text-center font-display font-light leading-[1.35] ${
+          huge ? "text-5xl sm:text-7xl" : "text-3xl italic sm:text-5xl"
+        }`}
+        style={{
+          color: "rgba(236,240,244,0.34)",
+          textShadow: "0 0 60px rgba(0,0,0,0.9), 0 0 18px rgba(200,220,235,0.12)",
+          letterSpacing: huge ? "0.14em" : "0.01em",
+        }}
+        initial={{ scale: 1.06, filter: "blur(10px)" }}
+        animate={{ scale: 1, filter: "blur(0px)" }}
+        transition={{ duration: 3.2, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {beat.text}
+      </motion.p>
+    </motion.div>
+  );
+}
+
 /* ------------------------- main layer ------------------------- */
 
 export default function NarrativeLayer({
@@ -482,6 +518,7 @@ export default function NarrativeLayer({
   if (beat.k === "choice") return <ChoiceBeat key={beatKey} beat={beat} onReady={setHandle} onSelect={onChoose} />;
   if (beat.k === "hotspot") return <HotspotBeat key={beatKey} beat={beat} onReady={setHandle} onTrigger={onHotspotThen} />;
   if (beat.k === "echo") return <EchoBeat key={beatKey} beat={beat} onReady={setHandle} />;
+  if (beat.k === "vision") return <VisionBeat key={beatKey} beat={beat} onReady={setHandle} />;
   if (beat.k === "awaitTab") return <AwaitTabBeat key={beatKey} beat={beat} onReady={setHandle} />;
   if (beat.k === "unlock") return <UnlockBeat key={beatKey} beat={beat} onReady={setHandle} />;
 

@@ -59,7 +59,7 @@ export default function GameShell({
   const [sennBurst, setSennBurst] = useState(false);
   const [overlay, setOverlay] = useState<"graft" | "combat" | "prune" | null>(null);
   const [transitioning, setTransitioning] = useState(false);
-  const [flash, setFlash] = useState<"root" | "white" | "cold" | null>(null);
+  const [flash, setFlash] = useState<"root" | "white" | "cold" | "tear" | null>(null);
   const [fadeBlack, setFadeBlack] = useState(false);
   const [castOn, setCastOn] = useState(false);
   const [shaking, setShaking] = useState(false);
@@ -189,6 +189,19 @@ export default function GameShell({
         case "unduck":
           audio.setDucked(false);
           break;
+        case "tear":
+          setFlash("tear");
+          audio.staticBurst(0.28);
+          audio.ui(1650);
+          window.setTimeout(() => audio.thud(), 90);
+          window.setTimeout(() => setFlash(null), 260);
+          break;
+        case "startle":
+          setShaking(true);
+          audio.heart();
+          window.setTimeout(() => audio.heart(), 520);
+          window.setTimeout(() => setShaking(false), 420);
+          break;
         case "staticUp":
           setFlag("staticUp");
           audio.staticBurst(0.8);
@@ -283,6 +296,10 @@ export default function GameShell({
       const t = window.setTimeout(() => setIdx((i) => i + 1), 60);
       return () => window.clearTimeout(t);
     }
+    if (beat.k === "hold") {
+      const t = window.setTimeout(() => setIdx((i) => i + 1), beat.ms);
+      return () => window.clearTimeout(t);
+    }
     if (beat.k === "setTab") {
       switchBranch(beat.branch);
       const t = window.setTimeout(() => setIdx((i) => i + 1), 620);
@@ -318,12 +335,15 @@ export default function GameShell({
 
   const press = useCallback(() => {
     if (overlay || transitioning) return;
+    /* auto-advancing beats own their own clock — clicks must not jump them */
+    const k = queue[idx]?.k;
+    if (k === "hold" || k === "fx" || k === "set" || k === "codex" || k === "coh" || k === "setTab") return;
     const now = Date.now();
     if (now - lastPress.current < 180) return;
     lastPress.current = now;
     const consumed = handleRef.current?.press() ?? false;
     if (!consumed) advance();
-  }, [overlay, transitioning, advance]);
+  }, [overlay, transitioning, advance, queue, idx]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -402,9 +422,9 @@ export default function GameShell({
 
   return (
     <div className="flex h-full flex-col bg-[#05070a]">
-      {/* the tab bar arrives when the story earns it */}
+      {/* the tab bar arrives when the story earns it — and is taken away when it doesn't */}
       <AnimatePresence>
-        {tabBarOn && (
+        {tabBarOn && !flags.tabHide && (
           <motion.div
             initial={{ y: -48, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -563,16 +583,16 @@ export default function GameShell({
               className="pointer-events-none absolute inset-0 z-[61]"
               style={{
                 background:
-                  flash === "white"
+                  flash === "white" || flash === "tear"
                     ? "#ffffff"
                     : flash === "cold"
                       ? "linear-gradient(180deg, rgba(215,236,255,0.95), rgba(180,215,255,0.9))"
                       : "radial-gradient(ellipse at 50% 55%, rgba(200,255,230,0.5), rgba(127,245,201,0.18) 45%, transparent 75%)",
               }}
-              initial={{ opacity: 0 }}
+              initial={{ opacity: flash === "tear" ? 1 : 0 }}
               animate={{ opacity: flash === "white" ? [0, 1, 0] : 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: flash === "white" ? 0.55 : 0.35 }}
+              transition={{ duration: flash === "white" ? 0.55 : flash === "tear" ? 0.05 : 0.35 }}
             />
           )}
         </AnimatePresence>

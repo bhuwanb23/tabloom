@@ -6,6 +6,7 @@ import chamberBg from "../assets/images/curse-heart-chamber.jpg";
 import ShadowWall from "./ShadowWall";
 import AriSprite, { type AriPose } from "./sprites/AriSprite";
 import { KaelSprite, MiraelSprite, SoldierSprite, CastPresence } from "./sprites/CastSprites";
+import RootBelowVision from "./scenes/RootBelowVision";
 import RainGlass from "./fx/RainGlass";
 import SnowDrift from "./fx/SnowDrift";
 import Motes from "./fx/Motes";
@@ -478,6 +479,16 @@ export default function VnScene({
   flags: Flags;
 }) {
   const ref = useParallax<HTMLDivElement>();
+
+  /* the vision overrides every branch — you are not in control right now */
+  if (flags.rootBelow) {
+    return (
+      <div className="absolute inset-0 overflow-hidden bg-black">
+        <RootBelowVision showDead={Boolean(flags.deadAri)} />
+      </div>
+    );
+  }
+
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden bg-[#05070a]">
       {branch === "nara" && <NaraScene flags={flags} />}

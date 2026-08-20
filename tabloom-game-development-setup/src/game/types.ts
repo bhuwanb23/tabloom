@@ -26,7 +26,9 @@ export type FxId =
   | "chimeLamp"
   | "coldFlash"
   | "duck"
-  | "unduck";
+  | "unduck"
+  | "tear"
+  | "startle";
 
 export interface Option {
   label: string;
@@ -71,7 +73,9 @@ export type Beat =
   | { k: "awaitTab"; branch: BranchId; text: string }
   | { k: "unlock"; title: string; sub: string }
   | { k: "combat"; wave: number }
-  | { k: "prune"; target: string };
+  | { k: "prune"; target: string }
+  | { k: "vision"; text: string; size?: "big" | "huge" }
+  | { k: "hold"; ms: number };
 
 export interface SceneMeta {
   url: string;
@@ -108,6 +112,7 @@ export interface MetaSave {
   codex: string[];
   act1Complete: boolean;
   act2Complete: boolean;
+  act3Complete: boolean;
   muted: boolean;
 }
 

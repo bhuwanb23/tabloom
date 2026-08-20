@@ -99,6 +99,20 @@ export const CODEX: CodexEntry[] = [
     kicker: "the fist that holds the loop shut",
     body: "A heart of black ice hanging in the glacier's throat, red-veined, beating upward into the weather of the whole branch. It holds the Karth-Muun loop tight as a fist. The true fight for it comes much later — Act I's crack was only an introduction.",
   },
+  {
+    id: "deadari",
+    cat: "people",
+    title: "The Dead Ari",
+    kicker: "seen once, uninvited",
+    body: "In the Root Below, among ten rotting branches, a body wearing his face — unstable, half-there, refusing to hold a single shape. He was given no chance to approach it, no way to touch it, no permission to ask. Only the looking. Only the fact of it.",
+  },
+  {
+    id: "vision",
+    cat: "things",
+    title: "The Uninvited Glimpse",
+    kicker: "not a dream — dreams are yours",
+    body: "Something reached up through the root-system and pulled his eye down into a place he has not earned yet. The Witness Mind's wreckage leaks; sometimes it leaks into whoever is nearest. Senn calls it nothing that has happened yet. Senn is choosing words very carefully.",
+  },
 ];
 
 export const codexById = (id: string): CodexEntry | undefined =>

@@ -337,7 +337,68 @@ export const SCENES: Scene[] = [
       fx("unduck", 100),
       fx("fadeBlack", 2400),
       set("tabLock", ""),
-      { k: "card", kicker: "ACT II", text: "THE MAN WHO CHOSE WELL", sub: "complete · above, the nara-0 tab rekindles · act iii sealed", style: "big" },
+      { k: "card", kicker: "ACT II", text: "THE MAN WHO CHOSE WELL", sub: "complete · above, the nara-0 tab rekindles", style: "big" },
+    ],
+  },
+
+  /* ===================== ACT III — A GLIMPSE, UNINVITED ===================== */
+
+  /* --------------- 9 · THE INTRUSION (no transition, no chrome, no tabs) --------------- */
+  {
+    id: "act3-vision",
+    branch: "karth",
+    title: "—",
+    meta: { url: "▓▓▓▓://root-below/▓▓▓▓", tag: "you did not open this" },
+    beats: [
+      /* hard cut — everything the player had is taken in one frame */
+      set("tabHide"),
+      set("rootBelow"),
+      set("intimate", false),
+      set("soldierHere", false),
+      set("kaelHere", false),
+      set("miraelHere", false),
+      { k: "hold", ms: 2600 },
+      { k: "vision", text: "Something opens its eye somewhere underneath everything." },
+      { k: "vision", text: "This is not a dream. Dreams are yours." },
+      { k: "vision", text: "THE ROOT BELOW", size: "huge" },
+      codex("vision"),
+      { k: "vision", text: "Ten branches came down here to rot. They are not finished doing it." },
+      { k: "vision", text: "The dark is not empty. The dark is occupied." },
+      /* the body he is not allowed to approach */
+      set("deadAri"),
+      codex("deadari"),
+      { k: "hold", ms: 3600 },
+      { k: "vision", text: "Someone is already lying where you are standing." },
+      { k: "vision", text: "He is wearing your face. He is wearing it badly." },
+      { k: "hold", ms: 3800 },
+      /* the tear — harder and shorter than act i's flash */
+      fx("tear", 700),
+    ],
+  },
+
+  /* --------------- 10 · WAKING --------------- */
+  {
+    id: "act3-waking",
+    branch: "karth",
+    title: "KARTH-MUUN.branch",
+    meta: { url: "aevum://karth-muun/the-thaw-corner", tag: "back · heart going too fast", clock: "--:--" },
+    beats: [
+      set("rootBelow", false),
+      set("deadAri", false),
+      set("intimate"),
+      set("ariSpot", "karth"),
+      fx("startle", 900),
+      n("The ice comes back all at once — cold, ordinary, blessedly solid. His own breath, too loud. His own hands, still his."),
+      fx("sennArrive", 2200),
+      d("ari", "What was that? Senn — what was that place? There was a body. It had my—"),
+      d("senn", "Nothing that's happened yet."),
+      d("ari", "That's not an answer."),
+      d("senn", "No. It's a kindness. There's a difference, and tonight you don't get to know which one I'm handing you."),
+      d("senn", "Rest, Ari.", "rest before you ask me the question i cannot survive answering"),
+      n("Somewhere far under the ice, ten dead branches keep rotting, patiently, in a place he was never supposed to see this early."),
+      set("tabHide", false),
+      fx("fadeBlack", 2600),
+      { k: "card", kicker: "ACT III", text: "A GLIMPSE, UNINVITED", sub: "complete · the tab bar returns · act iv sealed", style: "big" },
     ],
   },
 ];

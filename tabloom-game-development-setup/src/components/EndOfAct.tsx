@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BookOpen, Check, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors } from "lucide-react";
+import { BookOpen, Check, Eye, GitBranch, Heart, Home, KeyRound, Layers, Lock, RotateCcw, Scissors } from "lucide-react";
 import type { RunStats } from "../game/types";
 import Motes from "./fx/Motes";
 import SennAvatar from "./SennAvatar";
@@ -47,6 +47,20 @@ const ACT_INFO: Record<
       { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
       { icon: Scissors, label: "FIRST PRUNE", value: "CLEAN", tone: "#ff8a6a" },
       { icon: Heart, label: "CURSE-HEART", value: "CRACKED", tone: "#ff5a44" },
+      { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
+    ],
+  },
+  3: {
+    title: "A Glimpse, Uninvited",
+    sub: "THE ROOT BELOW · SOMETHING LOOKED BACK",
+    kicker: "END OF ACT III",
+    quote: "Nothing that's happened yet. Rest.",
+    quoteBy: "— SENN, ANSWERING SOMETHING ELSE",
+    caption: "It is not an answer. It is a kindness. There is a difference.",
+    chips: [
+      { icon: GitBranch, label: "COHERENCE", value: "", tone: "#7ff5c9" },
+      { icon: Eye, label: "THE BODY BELOW", value: "SEEN", tone: "#b8b0c8" },
+      { icon: Lock, label: "APPROACH", value: "DENIED", tone: "#8a94a6" },
       { icon: BookOpen, label: "CODEX RECOVERED", value: "", tone: "#c9b8ff" },
     ],
   },
@@ -160,7 +174,7 @@ export default function EndOfAct({
                 <KaelSprite className="h-full w-full" />
               </div>
             ) : (
-              <SennAvatar size={84} />
+              <SennAvatar size={84} speaking={act === 3} />
             )}
           </div>
           <div>
