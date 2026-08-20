@@ -16,6 +16,8 @@ import ShadowWall from "./ShadowWall";
 import AriSprite, { type AriPose } from "./sprites/AriSprite";
 import { KaelSprite, MiraelSprite, SoldierSprite, CastPresence } from "./sprites/CastSprites";
 import RootBelowVision from "./scenes/RootBelowVision";
+import RootChamber from "./scenes/RootChamber";
+import Epilogue, { type EpilogueMode } from "./scenes/Epilogue";
 import RainGlass from "./fx/RainGlass";
 import SnowDrift from "./fx/SnowDrift";
 import Motes from "./fx/Motes";
@@ -877,6 +879,24 @@ export default function VnScene({
     return (
       <div className="absolute inset-0 overflow-hidden bg-black">
         <RootBelowVision showDead={Boolean(flags.deadAri)} />
+      </div>
+    );
+  }
+
+  /* act x: after — nara-0, where it started */
+  if (flags.epilogue) {
+    return (
+      <div className="absolute inset-0 overflow-hidden bg-[#0b0e14]">
+        <Epilogue mode={flags.epilogue as EpilogueMode} lampFlicker={flags.epilogue === "herAlone"} />
+      </div>
+    );
+  }
+
+  /* act x: the root chamber */
+  if (flags.chamber10) {
+    return (
+      <div className="absolute inset-0 overflow-hidden bg-[#04070a]">
+        <RootChamber flags={flags} />
       </div>
     );
   }

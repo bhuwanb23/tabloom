@@ -21,6 +21,7 @@ import ExploreLayer from "./ExploreLayer";
 import Carving from "./Carving";
 import VeyrFight from "./VeyrFight";
 import TheTruth from "./TheTruth";
+import Credits from "./Credits";
 import VnScene from "./VnScene";
 import GraftCast from "./fx/GraftCast";
 import StaticNoise from "./fx/StaticNoise";
@@ -48,6 +49,8 @@ export default function GameShell({
   onOpenCodex,
   onEnd,
   onExit,
+  onReplayAll,
+  onEnding,
 }: {
   initial: RunSave;
   muted: boolean;
@@ -56,6 +59,8 @@ export default function GameShell({
   onOpenCodex: () => void;
   onEnd: (stats: RunStats) => void;
   onExit: () => void;
+  onReplayAll: () => void;
+  onEnding: (id: string) => void;
 }) {
   const [sceneIdx, setSceneIdx] = useState(initial.sceneIdx);
   const [queue, setQueue] = useState<Beat[]>(SCENES[initial.sceneIdx]?.beats ?? []);
@@ -85,6 +90,8 @@ export default function GameShell({
   const [transitioning, setTransitioning] = useState(false);
   const [flash, setFlash] = useState<"root" | "white" | "cold" | "tear" | null>(null);
   const [fadeBlack, setFadeBlack] = useState(false);
+  const [fadeTone, setFadeTone] = useState("#000000");
+  const [credits, setCredits] = useState<string | null>(null);
   const [castOn, setCastOn] = useState(false);
   const [shaking, setShaking] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -197,6 +204,7 @@ export default function GameShell({
           window.setTimeout(() => setCastOn(false), 2200);
           break;
         case "fadeBlack":
+          setFadeTone("#000000");
           setFadeBlack(true);
           break;
         case "chimeLamp":
@@ -232,6 +240,17 @@ export default function GameShell({
           window.setTimeout(() => audio.setDucked(false), 4200);
           break;
         case "longFade":
+          setFadeTone("#000000");
+          setFadeBlack(true);
+          audio.setDucked(true);
+          break;
+        case "fadeWhite":
+          setFadeTone("#f6fbf8");
+          setFadeBlack(true);
+          audio.setDucked(true);
+          break;
+        case "fadeGrey":
+          setFadeTone("#9aa3ad");
           setFadeBlack(true);
           audio.setDucked(true);
           break;
@@ -387,6 +406,17 @@ export default function GameShell({
       setOverlay("truth");
       return;
     }
+    if (beat.k === "credits") {
+      setCredits(beat.ending);
+      onEnding(beat.ending);
+      audio.setDucked(false);
+      try {
+        localStorage.removeItem(RUN_KEY);
+      } catch {
+        /* ignore */
+      }
+      return;
+    }
     if (beat.k === "awaitTab" && beat.branch === branch) {
       // already standing in the awaited reality — linger, then move on
       const t = window.setTimeout(() => setIdx((i) => i + 1), 2600);
@@ -491,6 +521,11 @@ export default function GameShell({
 
   /* ---------------- progress ---------------- */
   const progress = ((sceneIdx + Math.min(idx, Math.max(queue.length - 1, 1)) / Math.max(queue.length, 1)) / SCENES.length) * 100;
+
+  /* the story is over. everything else stops mattering. */
+  if (credits) {
+    return <Credits ending={credits} onReplay={onReplayAll} onTitle={onExit} />;
+  }
 
   return (
     <div className="flex h-full flex-col bg-[#05070a]">
@@ -684,11 +719,12 @@ export default function GameShell({
           )}
         </AnimatePresence>
 
-        {/* act-out fade (beneath the beat layer, so the end card prints on black) */}
+        {/* act-out fade — black, or white for hope, or grey for what's left */}
         <motion.div
-          className="pointer-events-none absolute inset-0 z-[27] bg-black"
+          className="pointer-events-none absolute inset-0 z-[27]"
+          style={{ background: fadeTone }}
           animate={{ opacity: fadeBlack ? 1 : 0 }}
-          transition={{ duration: 2.2 }}
+          transition={{ duration: fadeTone === "#000000" ? 2.2 : 5.5 }}
         />
 
         {/* graft overlay (reserved for later acts) */}
@@ -750,6 +786,38 @@ export default function GameShell({
         <AnimatePresence>
           {overlay === "carving" && beat?.k === "carving" && (
             <Carving lines={beat.lines} onDone={closeOverlayAdvance} />
+          )}
+        </AnimatePresence>
+
+        {/* act x — the confirming action */}
+        <AnimatePresence>
+          {beat?.k === "act" && !overlay && (
+            <motion.button
+              className="absolute z-30"
+              style={{ left: `${beat.rect[0]}%`, top: `${beat.rect[1]}%`, width: `${beat.rect[2]}%`, height: `${beat.rect[3]}%` }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.4 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                audio.bloom();
+                insertThen(beat.then);
+              }}
+            >
+              <motion.span
+                className="absolute inset-0 rounded-2xl border border-emerald-200/40"
+                style={{ background: "radial-gradient(ellipse, rgba(127,245,201,0.12), transparent 72%)" }}
+                animate={{ opacity: [0.45, 1, 0.45] }}
+                transition={{ duration: 2.8, repeat: Infinity }}
+              />
+              <span className="absolute left-1/2 top-full flex -translate-x-1/2 translate-y-3 flex-col items-center gap-1 whitespace-nowrap">
+                <span className="font-term rounded-md border border-emerald-200/40 bg-[#060a0e]/90 px-4 py-2 text-[11px] tracking-[0.35em] text-emerald-100">
+                  {beat.label}
+                </span>
+                {beat.sub && <span className="font-term text-[9px] tracking-[0.25em] text-white/35">{beat.sub}</span>}
+              </span>
+            </motion.button>
           )}
         </AnimatePresence>
 

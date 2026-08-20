@@ -1044,9 +1044,226 @@ export const SCENES: Scene[] = [
       n("Not yet."),
       fx("longFade", 5600),
       { k: "hold", ms: 4400 },
-      { k: "card", kicker: "ACT IX", text: "WHAT VEYR KNOWS THAT ARI DOESN'T", sub: "complete · the blade is on the ground · act x sealed", style: "big" },
+      { k: "card", kicker: "ACT IX", text: "WHAT VEYR KNOWS THAT ARI DOESN'T", sub: "complete · the blade is on the ground", style: "big" },
     ],
   },
+
+  /* ===================== ACT X — THREE WAYS TO FINISH A SENTENCE ===================== */
+
+  /* --------------- 30 · THE ROOT CHAMBER --------------- */
+  {
+    id: "act10-chamber",
+    branch: "void",
+    title: "aevum://root-chamber",
+    meta: { url: "aevum://heartwood/root-chamber", tag: "everything converges here", clock: "—" },
+    beats: [
+      { k: "card", kicker: "ACT X", text: "THREE WAYS TO FINISH A SENTENCE", sub: "the root chamber", style: "big" },
+      set("siege", false),
+      set("veyrHere", false),
+      set("chamber10"),
+      set("chamberState", "wound"),
+      set("bladeHeld", false),
+      set("bladeDown", false),
+      set("sennHere", false),
+      set("ariDissolve", 0),
+      codex("rootchamber"),
+      /* let them look at it */
+      { k: "hold", ms: 4200 },
+      n("Down. Past the wounds, past the siege, past the last place anything was still arguing."),
+      n("The Root Chamber. Every branch's root, converging into one knot the size of a city, and the walls are patterned the way old wood is patterned."),
+      { k: "hold", ms: 3200 },
+      n("If you stand in it long enough, the pattern resolves. There is a brow. There are two long eyes. It has been looking at him since he walked in, and it has been looking at everything else for considerably longer."),
+      d("ari", "…It's still alive."),
+      fx("sennArrive", 2200),
+      set("sennHere"),
+      d("senn", "Barely. Crown severed, root intact. It has been holding what's left apart with the part of itself that can't move."),
+      d("senn", "And now you're here with his knife on the floor behind you."),
+      codex("threeways"),
+      { k: "hold", ms: 2400 },
+      d("senn", "I'm not going to tell you what to do. I've used up my right to. That's the first honest thing I've managed since the rain."),
+    ],
+  },
+
+  /* --------------- 31 · THE CHOICE --------------- */
+  {
+    id: "act10-choice",
+    branch: "void",
+    title: "aevum://root-chamber",
+    meta: { url: "aevum://heartwood/root-chamber", tag: "your hands · your sentence", clock: "—" },
+    beats: [
+      n("The Nullroot lies where Veyr left it. It has not stopped being an option."),
+
+      /* ---------- BEAT A: a physical action, not a menu ---------- */
+      {
+        k: "choice",
+        prompt: "",
+        options: [
+          {
+            label: "Set the blade down in the roots",
+            sub: "open your hand · let it lie",
+            then: [
+              set("bladeDown"),
+              n("He carries it as far as the knot and lays it down in the root-mass, point away from everything."),
+              n("It looks smaller on the ground. Most facts do."),
+              /* ---------- BEAT B (acceptance flavour) ---------- */
+              {
+                k: "choice",
+                prompt: "Senn is waiting to be sentenced.",
+                options: [
+                  {
+                    label: "“You don't get forgiveness. You get to help.”",
+                    sub: "acceptance",
+                    then: [
+                      d("senn", "…That's worse. Thank you."),
+                      d("ari", "It's supposed to be worse. You'll carve no more stones. You'll plant instead. I'll be checking."),
+                    ],
+                  },
+                  {
+                    label: "“Four of me. Say their names.”",
+                    sub: "anger",
+                    then: [
+                      d("senn", "I never let myself give them names. It made it easier and that is exactly the crime."),
+                      d("ari", "Then learn mine properly, and be the last one who has to."),
+                    ],
+                  },
+                ],
+              },
+              /* ---------- BEAT C: the confirming act ---------- */
+              {
+                k: "act",
+                id: "mend",
+                label: "GRAFT THE WOUND",
+                sub: "knit — don't cut",
+                rect: [46, 30, 10, 32],
+                then: [
+                  set("chamberState", "healed"),
+                  fx("bloomFlash", 1600),
+                  n("Both hands. The oldest thing he knows how to do, and the first thing he was ever taught."),
+                  n("The cut closes the way a sentence closes — not erased, just finished. Ten dead branches will stay dead. The five that are left stop bleeding."),
+                  { k: "hold", ms: 3000 },
+                  /* ---- EPILOGUE: NARA-0, FULL CIRCLE ---- */
+                  set("epilogue", "together"),
+                  set("chamber10", false),
+                  { k: "hold", ms: 3400 },
+                  n("Rain against glass. A grey apartment in a city called Nara-0, ordinary in the specific way that makes ordinary things feel like a held breath."),
+                  n("One body. One shadow."),
+                  d("mirael", "Kael would've hated this. All this quiet."),
+                  d("ari", "Kael got his ending. This one's mine."),
+                  d("mirael", "And the gardener?"),
+                  d("ari", "Planting. Under supervision. Forever, I should think."),
+                  { k: "hold", ms: 2400 },
+                  d("mirael", "Are you going to keep looking?"),
+                  { k: "hold", ms: 2600 },
+                  d("ari", "Yes. But it's mine now. That's the whole difference."),
+                  fx("fadeWhite", 6000),
+                  { k: "hold", ms: 5200 },
+                  { k: "credits", ending: "regrowth" },
+                ],
+              },
+            ],
+          },
+          {
+            label: "Take the blade up",
+            sub: "close your hand · feel how well it fits",
+            then: [
+              set("bladeHeld"),
+              n("It fits. That is the horror of it — it fits like it was measured."),
+              d("senn", "Ari."),
+              d("ari", "I know."),
+              /* ---------- BEAT B (the real fork) ---------- */
+              {
+                k: "choice",
+                prompt: "The knot is right there. So is everything else.",
+                options: [
+                  {
+                    label: "“He's right. End the loneliness.”",
+                    sub: "transcendence · collapse them into one",
+                    then: [
+                      d("senn", "You'd be the last thing fifteen worlds ever agree on."),
+                      d("ari", "Then they'll finally agree on something."),
+                      {
+                        k: "act",
+                        id: "merge",
+                        label: "CUT THE PARTITIONS",
+                        sub: "one room · everybody home",
+                        rect: [46, 30, 10, 32],
+                        then: [
+                          set("chamberState", "merge"),
+                          fx("shake", 700),
+                          n("The walls between the branches go like wet paper."),
+                          n("Rain arrives on a frozen field. A garden opens onto an archive. Everyone who ever died alone dies surrounded, at last, by everyone else."),
+                          { k: "hold", ms: 3200 },
+                          /* ---- EPILOGUE: ONE ROOM, TOO LARGE ---- */
+                          set("epilogue", "alone"),
+                          set("chamber10", false),
+                          { k: "hold", ms: 4000 },
+                          n("Afterwards there is one world, and it is very quiet, and it has everything in it."),
+                          n("Every street from every branch, folded into one street. Everyone who was ever anyone's, standing in the same room."),
+                          { k: "hold", ms: 3000 },
+                          n("A girl died once, witnessed by everything at the same time. Veyr was right about that part. He was right about that part."),
+                          { k: "hold", ms: 3400 },
+                          n("Ari stands in the middle of the only place there is, and finds he cannot say which world he is from, because the answer is no longer a thing the sentence can hold."),
+                          { k: "hold", ms: 3600 },
+                          n("There is nobody left to keep looking for."),
+                          fx("longFade", 6000),
+                          { k: "hold", ms: 6000 },
+                          { k: "credits", ending: "merge" },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    label: "“No more hands. Not his. Not yours.”",
+                    sub: "anger · cut the keeper loose",
+                    then: [
+                      d("senn", "If you cut me out of it, nothing steers. Nothing plans. Nothing chooses for anyone ever again."),
+                      d("ari", "Yes."),
+                      d("senn", "…Including you, little echo. You're grafted into it now. You go too."),
+                      d("ari", "I know exactly what I am. I read the file."),
+                      {
+                        k: "act",
+                        id: "sunder",
+                        label: "CUT THE KEEPER FREE",
+                        sub: "no more steering · no more you",
+                        rect: [46, 30, 10, 32],
+                        then: [
+                          set("chamberState", "sunder"),
+                          fx("shake", 700),
+                          n("One cut, precise as the one that started all of this, and aimed the other way."),
+                          n("The root-system comes loose from everything that was ever going to use it. No Witness. No gardener. No hand on the tab bar."),
+                          set("ariDissolve", 1),
+                          { k: "hold", ms: 4200 },
+                          n("And the man standing in the pattern becomes part of the pattern, the way ink becomes part of paper."),
+                          { k: "hold", ms: 3000 },
+                          /* ---- EPILOGUE: A LAMP, STILL ANSWERING ---- */
+                          set("epilogue", "herAlone"),
+                          set("chamber10", false),
+                          { k: "hold", ms: 3600 },
+                          n("Nara-0. Rain, as always. The apartment has a new tenant who never asks why the lamp does that."),
+                          n("Mirael comes when she can. She is not sure why; there is nothing here that belongs to her."),
+                          { k: "hold", ms: 3000 },
+                          n("The lamp flickers. Once, then twice, then a long steady moment of being on."),
+                          { k: "hold", ms: 2800 },
+                          d("mirael", "…Still there, then."),
+                          { k: "hold", ms: 2600 },
+                          n("Nothing answers. Nothing steers anything, anywhere, ever again — which was the point, and is also the cost."),
+                          n("But the light keeps coming on. Somewhere under everything, something that used to have a name is still holding one small thing apart from the dark."),
+                          fx("fadeGrey", 6000),
+                          { k: "hold", ms: 5400 },
+                          { k: "credits", ending: "sundering" },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
 ];
 
 export const ACT_I_TITLE = "ASH AND RAIN";

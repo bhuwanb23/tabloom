@@ -142,6 +142,20 @@ export const CODEX: CodexEntry[] = [
     body: "A perfect forgery has to forge everything, including the parts nobody checks. Glass Eden reproduced its own sky flawlessly — and then reflected it with a single star in the wrong colour. Every lie has one. Finding it is the whole job.",
   },
   {
+    id: "rootchamber",
+    cat: "places",
+    title: "The Root Chamber",
+    kicker: "where the sentence gets finished",
+    body: "The place under the Heartwood where every branch's root converges into one knot. Stand in it long enough and the pattern in the walls resolves into something with a face — patient, enormous, and still, after everything, watching.",
+  },
+  {
+    id: "threeways",
+    cat: "things",
+    title: "Three Ways to Finish a Sentence",
+    kicker: "regrow · merge · sunder",
+    body: "Mend the wound and let the branches grow back knowing what they cost. Collapse them into one world that finally remembers. Or cut the root-system free of its keeper so nothing can ever be steered again. None of the three is the correct answer. That is the point of being handed all three.",
+  },
+  {
     id: "heartwood",
     cat: "places",
     title: "The Heartwood",

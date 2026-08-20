@@ -39,6 +39,7 @@ function loadMeta(): MetaSave {
         act7Complete: false,
         act8Complete: false,
         act9Complete: false,
+        endings: [],
         muted: false,
         ...JSON.parse(raw),
       };
@@ -56,6 +57,7 @@ function loadMeta(): MetaSave {
     act7Complete: false,
     act8Complete: false,
     act9Complete: false,
+    endings: [],
     muted: false,
   };
 }
@@ -105,6 +107,10 @@ export default function App() {
 
   const toggleMute = useCallback(() => {
     setMeta((m) => ({ ...m, muted: !m.muted }));
+  }, []);
+
+  const recordEnding = useCallback((id: string) => {
+    setMeta((m) => (m.endings.includes(id) ? m : { ...m, endings: [...m.endings, id] }));
   }, []);
 
   const begin = useCallback(() => {
@@ -195,6 +201,8 @@ export default function App() {
           onOpenCodex={() => setCodexOpen(true)}
           onEnd={onEnd}
           onExit={onExit}
+          onReplayAll={begin}
+          onEnding={recordEnding}
         />
       )}
 

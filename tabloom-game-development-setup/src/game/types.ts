@@ -30,7 +30,9 @@ export type FxId =
   | "tear"
   | "startle"
   | "desaturate"
-  | "longFade";
+  | "longFade"
+  | "fadeWhite"
+  | "fadeGrey";
 
 export interface Option {
   label: string;
@@ -92,7 +94,9 @@ export type Beat =
     }
   | { k: "carving"; lines: string[] }
   | { k: "veyrFight" }
-  | { k: "truth" };
+  | { k: "truth" }
+  | { k: "act"; id: string; label: string; sub?: string; rect: [number, number, number, number]; then: Beat[] }
+  | { k: "credits"; ending: "regrowth" | "merge" | "sundering" };
 
 export interface SceneMeta {
   url: string;
@@ -136,6 +140,7 @@ export interface MetaSave {
   act7Complete: boolean;
   act8Complete: boolean;
   act9Complete: boolean;
+  endings: string[];
   muted: boolean;
 }
 
