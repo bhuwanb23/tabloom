@@ -1102,14 +1102,15 @@ export const SCENES: Scene[] = [
     beats: [
       n("The Nullroot lies where Veyr left it. It has not stopped being an option."),
 
-      /* ---------- BEAT A: a physical action, not a menu ---------- */
+      /* ---------- BEAT A: physical actions in the chamber, not a menu ---------- */
       {
-        k: "choice",
-        prompt: "",
+        k: "fork",
         options: [
           {
-            label: "Set the blade down in the roots",
-            sub: "open your hand · let it lie",
+            id: "down",
+            label: "SET THE BLADE DOWN",
+            sub: "open your hand · let it lie in the roots",
+            rect: [44, 52, 14, 22],
             then: [
               set("bladeDown"),
               n("He carries it as far as the knot and lays it down in the root-mass, point away from everything."),
@@ -1143,19 +1144,19 @@ export const SCENES: Scene[] = [
                 id: "mend",
                 label: "GRAFT THE WOUND",
                 sub: "knit — don't cut",
-                rect: [46, 30, 10, 32],
+                rect: [44, 26, 14, 30],
                 then: [
                   set("chamberState", "healed"),
                   fx("bloomFlash", 1600),
                   n("Both hands. The oldest thing he knows how to do, and the first thing he was ever taught."),
                   n("The cut closes the way a sentence closes — not erased, just finished. Ten dead branches will stay dead. The five that are left stop bleeding."),
                   { k: "hold", ms: 3000 },
-                  /* ---- EPILOGUE: NARA-0, FULL CIRCLE ---- */
+                  /* ---- EPILOGUE: NARA-0 RAIN STREETS, FULL CIRCLE ---- */
                   set("epilogue", "together"),
                   set("chamber10", false),
                   { k: "hold", ms: 3400 },
-                  n("Rain against glass. A grey apartment in a city called Nara-0, ordinary in the specific way that makes ordinary things feel like a held breath."),
-                  n("One body. One shadow."),
+                  n("Rain on the streets of Nara-0. The city is grey, ordinary, and — for the first time — finished with needing him to be more than one person."),
+                  n("One body. One shadow. Walking home."),
                   d("mirael", "Kael would've hated this. All this quiet."),
                   d("ari", "Kael got his ending. This one's mine."),
                   d("mirael", "And the gardener?"),
@@ -1172,8 +1173,10 @@ export const SCENES: Scene[] = [
             ],
           },
           {
-            label: "Take the blade up",
+            id: "up",
+            label: "TAKE THE BLADE UP",
             sub: "close your hand · feel how well it fits",
+            rect: [26, 40, 12, 26],
             then: [
               set("bladeHeld"),
               n("It fits. That is the horror of it — it fits like it was measured."),
@@ -1195,7 +1198,7 @@ export const SCENES: Scene[] = [
                         id: "merge",
                         label: "CUT THE PARTITIONS",
                         sub: "one room · everybody home",
-                        rect: [46, 30, 10, 32],
+                        rect: [44, 26, 14, 30],
                         then: [
                           set("chamberState", "merge"),
                           fx("shake", 700),
@@ -1234,7 +1237,7 @@ export const SCENES: Scene[] = [
                         id: "sunder",
                         label: "CUT THE KEEPER FREE",
                         sub: "no more steering · no more you",
-                        rect: [46, 30, 10, 32],
+                        rect: [44, 26, 14, 30],
                         then: [
                           set("chamberState", "sunder"),
                           fx("shake", 700),

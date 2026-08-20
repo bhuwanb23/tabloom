@@ -790,6 +790,13 @@ export default function GameShell({
           )}
         </AnimatePresence>
 
+        {/* act x — physical blade choice (beat a) */}
+        <AnimatePresence>
+          {beat?.k === "fork" && !overlay && (
+            <BladeFork options={beat.options} onPick={(then) => insertThen(then)} />
+          )}
+        </AnimatePresence>
+
         {/* act x — the confirming action */}
         <AnimatePresence>
           {beat?.k === "act" && !overlay && (
